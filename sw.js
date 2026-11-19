@@ -1,4 +1,4 @@
-const CACHE = 'ring-rush-v2';
+const CACHE = 'ring-rush-v3';
 const CORE = [
   './',
   './index.html',
@@ -11,15 +11,23 @@ const CORE = [
   './assets/e46_gtr_side.png',
   './assets/e46_gtr_card.png',
   './assets/gt3rs_side.png',
-  './assets/gt3rs_card.png'
-  './assets/parts/engine.svg',
-  './assets/parts/turbo.svg',
-  './assets/parts/gearbox.svg',
-  './assets/parts/tires.svg',
-  './assets/parts/suspension.svg',
-  './assets/parts/brakes.svg',
-  './assets/parts/radiator.svg',
-  './assets/parts/wing.svg'
+  './assets/gt3rs_card.png',
+  './assets/parts/engine_common.png',
+  './assets/parts/turbo_common.png',
+  './assets/parts/gearbox_common.png',
+  './assets/parts/tires_common.png',
+  './assets/parts/suspension_common.png',
+  './assets/parts/brakes_common.png',
+  './assets/parts/radiator_common.png',
+  './assets/parts/wing_common.png',
+  './assets/parts/engine_premium.png',
+  './assets/parts/turbo_premium.png',
+  './assets/parts/gearbox_premium.png',
+  './assets/parts/tires_premium.png',
+  './assets/parts/suspension_premium.png',
+  './assets/parts/brakes_premium.png',
+  './assets/parts/radiator_premium.png',
+  './assets/parts/wing_premium.png'
 ];
 
 self.addEventListener('install', event => {
