@@ -1,0 +1,1646 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b1014">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/ring-rush-icon.svg" type="image/svg+xml">
+<title>Ring Rush</title>
+<style>
+:root{--bg:#091015;--panel:#111a21;--panel2:#17242c;--line:#24343d;--text:#eff6f2;--muted:#8ea3a5;--lime:#c8ff4d;--cyan:#69e2e8;--amber:#ffb84d;--red:#ff6b5e;--shadow:0 18px 45px #0008}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;overscroll-behavior:none;touch-action:manipulation;background:radial-gradient(circle at 20% 0,#1b3137 0,#091015 42%,#060a0d 100%);color:var(--text);font:500 14px/1.35 Inter,system-ui,-apple-system,sans-serif;height:100%;overflow:hidden;user-select:none}body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}button{font:inherit;color:inherit;border:0;cursor:pointer}#app{height:100dvh;min-height:100dvh;width:100%;max-width:none;margin:0;display:flex;flex-direction:column;position:relative}.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 8px}.brand{font-weight:900;letter-spacing:.12em;font-size:18px}.brand span{color:var(--lime)}.resources{display:flex;gap:7px}.pill{background:#0d171d;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px}.pill b{color:var(--lime)}main{flex:1;min-height:0;overflow:hidden;padding:0 14px 92px}.screen{display:none;height:100%;overflow:hidden;padding-bottom:10px;overscroll-behavior:none}.screen.active{display:block}.hero{background:linear-gradient(145deg,#1b2a31,#111a20);border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}.eyebrow{color:var(--lime);font-size:11px;letter-spacing:.15em;text-transform:uppercase}.title{font-size:28px;font-weight:900;line-height:1.03;margin:4px 0}.sub{color:var(--muted);font-size:12px}.race-meta{display:flex;justify-content:space-between;margin-top:12px}.progress{height:7px;background:#0a1115;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--lime),#75e9a2);border-radius:9px}.canvas-wrap{margin-top:12px;border:1px solid #31434b;border-radius:18px;overflow:hidden;background:#0a1115;position:relative}.canvas-wrap canvas{display:block;width:100%;height:156px}.race-chip{position:absolute;top:10px;padding:5px 8px;border-radius:9px;background:#071015d9;font-size:11px}.race-chip.left{left:10px}.race-chip.right{right:10px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.stat{background:#101b22;border:1px solid var(--line);border-radius:14px;padding:10px}.stat small{display:block;color:var(--muted);font-size:10px}.stat strong{font-size:18px}.shift{width:100%;margin-top:12px;background:linear-gradient(135deg,#d8ff5f,#88dd64);color:#10200f;border-radius:18px;padding:17px 14px;box-shadow:0 8px 22px #9cf04d33;position:relative;overflow:hidden}.shift:active{transform:scale(.985)}.shift b{display:block;font-size:24px;letter-spacing:.08em}.shift small{font-size:11px;opacity:.75}.shift .meter{position:absolute;inset:auto 0 0;height:5px;background:#10200f33}.shift .meter i{display:block;height:100%;width:50%;background:#10200f}.log{margin-top:10px;display:flex;gap:7px;overflow:hidden}.toast{background:#16242a;border:1px solid #28424a;border-radius:12px;padding:8px 10px;white-space:nowrap;font-size:11px}.section-head{display:flex;justify-content:space-between;align-items:end;margin:12px 2px 8px}.section-head h2{font-size:18px;margin:0}.section-head span{color:var(--muted);font-size:11px}.panel{background:linear-gradient(145deg,#121d24,#0d151b);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px}.garage-car{display:flex;align-items:center;gap:14px}.garage-car img{width:45%;max-height:120px;object-fit:contain;filter:drop-shadow(0 12px 13px #0008)}.car-name{font-size:21px;font-weight:900}.tag{display:inline-flex;padding:4px 7px;border-radius:7px;background:#23343a;color:var(--lime);font-size:10px;font-weight:800;letter-spacing:.08em}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.part{background:#121f26;border:1px solid var(--line);border-radius:14px;padding:10px;position:relative}.part-thumb{width:100%;height:54px;object-fit:cover;border-radius:10px;background:#0b1418;display:block;margin-bottom:7px}.part.inventory-item{display:grid;gap:3px;align-content:start}.part.inventory-item .part-thumb{height:58px;margin:-1px -1px 4px;width:calc(100% + 2px)}.part .icon{font-size:20px}.part small{display:block;color:var(--muted);font-size:10px}.part b{display:block;margin-top:3px}.rarity{color:var(--lime);font-size:10px}.actions{display:flex;gap:8px;margin-top:10px}.btn{background:#1b2b32;border:1px solid #31464f;border-radius:12px;padding:11px 12px;font-weight:800;flex:1}.btn.primary{background:var(--lime);color:#10200f;border-color:var(--lime)}.btn.warn{background:#3b2c1b;border-color:#805b2d;color:#ffc968}.btn:active{transform:translateY(1px)}.roulette{display:flex;align-items:center;gap:12px}.crate{width:74px;height:74px;border-radius:20px;background:linear-gradient(145deg,#cbff52,#579b52);display:grid;place-items:center;color:#10200f;font-size:34px;box-shadow:0 8px 20px #8ce35733}.roulette h3{margin:0 0 4px}.roulette p{margin:0;color:var(--muted);font-size:11px}.toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.toggle input{accent-color:var(--lime)}.evo{position:relative;padding-left:16px}.evo:before{content:"";position:absolute;left:24px;top:22px;bottom:22px;width:2px;background:#31434b}.node{display:flex;gap:12px;align-items:center;position:relative;margin:12px 0}.node-dot{width:18px;height:18px;border-radius:50%;background:#203139;border:3px solid #52656c;z-index:1}.node.unlocked .node-dot{background:var(--lime);border-color:#dfff91;box-shadow:0 0 0 5px #c8ff4d1c}.node-card{flex:1;background:#121f26;border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;align-items:center;gap:10px}.node-card img{width:90px;height:54px;object-fit:contain}.node-card h3{margin:0;font-size:15px}.node-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.locked{opacity:.5}.bottom{position:absolute;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#09101500,#091015 18%)}.nav{display:grid;grid-template-columns:repeat(3,1fr);background:#101b21ef;border:1px solid #2b3d44;border-radius:18px;padding:5px;box-shadow:var(--shadow)}.nav button{background:transparent;color:var(--muted);padding:9px 6px;border-radius:13px;font-size:11px}.nav button.active{background:#22343b;color:var(--lime)}.toast-pop{position:absolute;left:50%;top:72px;transform:translateX(-50%) translateY(-8px);background:#d8ff5f;color:#0d1b0f;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:5}.toast-pop.show{opacity:1;transform:translateX(-50%) translateY(0)}.boss-overlay{position:absolute;inset:0;background:radial-gradient(circle at 50% 18%,#452b1acc,#090f13f5 48%);display:none;align-items:flex-end;z-index:10;padding:16px}.boss-overlay.show{display:flex}.boss-card{width:100%;background:linear-gradient(160deg,#2a1e1a,#121a1e 58%);border:1px solid #8c5d3e;border-radius:26px;padding:18px;box-shadow:0 22px 60px #000b;animation:bossIn .28s ease-out}.boss-kicker{color:var(--amber);font-size:11px;letter-spacing:.18em;font-weight:900}.boss-title{font-size:32px;line-height:1;font-weight:950;margin:5px 0 8px}.boss-sub{color:#d7c1b3;font-size:12px}.boss-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.boss-stat{background:#161c20;border:1px solid #4b3730;border-radius:14px;padding:10px}.boss-stat small{display:block;color:#a89183;font-size:10px}.boss-stat b{font-size:20px;color:var(--amber)}.boss-reward{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.reward-chip{background:#241f1c;border:1px solid #594437;border-radius:999px;padding:7px 10px;font-size:11px;color:#ffe1a7}.boss-actions{display:flex;gap:8px}.boss-actions .btn{padding:14px 12px}.boss-actions .btn.primary{background:linear-gradient(135deg,#ffcf68,#ff974d);border-color:#ffcf68}.boss-card .progress{background:#171313;border:1px solid #553a2f;height:10px}.boss-card .progress i{background:linear-gradient(90deg,#ffcb61,#ff704f);transition:width .2s}@keyframes bossIn{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}.hero.boss-ready{border-color:#a1663c;box-shadow:0 0 0 1px #a1663c,0 0 38px #ff8a3d26,var(--shadow)}.part{cursor:pointer;transition:.18s}.part.selected{border-color:var(--lime);box-shadow:0 0 0 1px #c8ff4d55,0 8px 20px #0004}.part button{width:100%;margin-top:8px;padding:7px 6px;border-radius:9px;background:#1b3037;border:1px solid #34515b;color:var(--text);font-size:10px;font-weight:800}.part button:active{transform:translateY(1px)}.inspector{background:linear-gradient(145deg,#172a31,#10181d);border-color:#3a5c64}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.compare-box{background:#0e171c;border:1px solid var(--line);border-radius:12px;padding:9px}.compare-box small{display:block;color:var(--muted);font-size:10px}.compare-box b{display:block;font-size:18px;margin-top:2px}.compare-box.new{border-color:#87b94a}.delta{color:var(--lime);font-size:11px}.inspector-empty{color:var(--muted);font-size:12px;padding:4px 0}
+
+@media (min-width:600px){.canvas-wrap canvas{height:190px}}@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+.garage-car>div{flex:1;min-width:0}
+.garage-car img{width:40%;flex:none}
+.garage-car .actions{flex-wrap:wrap}
+.garage-car .actions .btn{min-height:44px;flex:1 0 max-content}
+.inventory-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.inventory-filters label{display:grid;gap:4px;color:var(--muted);font-size:11px}
+.inventory-filters select{width:100%;min-height:44px;padding:6px;background:#0e171c;color:var(--text);border:1px solid #3a5c64;border-radius:10px;font:inherit;font-size:13px;color-scheme:dark}
+.inventory-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.inventory-item{text-align:left;min-height:86px;border-left:3px solid var(--rarity);padding:9px}
+.inventory-item small,.inventory-item .rarity{display:block}
+.inventory-item[aria-pressed=true]{background:#203039;outline:1px solid var(--lime)}
+.inventory-item b{font-size:17px}
+.inventory-empty{grid-column:1/-1;margin:0}
+.inventory-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-bottom:10px}
+.inventory-slots button{background:#17242c;border:1px solid var(--line);border-radius:10px;padding:6px 2px;min-height:44px;font-size:11px}
+.inventory-slots button[aria-pressed=true]{border-color:var(--lime);color:var(--lime)}
+.inventory-slots small{display:block;color:var(--muted)}
+#partInspector{scroll-margin:8px}
+#partInspector .actions{flex-wrap:wrap}
+#partInspector .btn{min-height:44px}
+
+.shift .meter{height:8px;background:linear-gradient(90deg,#10200f44 0 65%,#316719 65% 88%,#10200f44 88%)}
+.shift .meter i{position:absolute;top:0;width:3px;height:100%;background:#f5ffe6}
+.shift:disabled{opacity:.57;cursor:default}
+#bossShift{margin-top:8px}
+.boss-overlay{overflow:hidden}
+.boss-card{margin-top:auto}
+.boss-overlay.show{align-items:flex-start}
+.boss-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+.boss-stat b{font-variant-numeric:tabular-nums}
+#buildPerformance{margin-bottom:10px}
+.bench-table{width:100%;border-collapse:collapse;margin:10px 0 0;font-variant-numeric:tabular-nums;font-size:12px}
+.bench-table th,.bench-table td{padding:8px 5px;text-align:right;border-bottom:1px solid var(--line)}
+.bench-table th:first-child{text-align:left}
+.bench-table td:last-child{color:var(--lime)}
+[hidden]{display:none!important}
+.race-brief{margin-top:8px;padding:8px 10px;border-left:2px solid var(--amber);background:#101b22;border-radius:0 10px 10px 0}
+.race-brief b{color:var(--amber)}
+.boss-sector{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:8px 0}
+.boss-sector b{color:var(--amber)}
+.bench-picker{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bench-picker select{max-width:55%;min-height:44px;background:#0e171c;color:var(--text);border:1px solid #3a5c64;border-radius:8px;padding:6px;font:inherit;color-scheme:dark}
+.presets{padding:12px}
+.preset-list{display:grid;gap:7px}
+.preset-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;background:#101b22;border:1px solid var(--line);border-radius:12px;padding:8px}
+.preset-row[data-matches=true]{border-color:#729747}
+.preset-row strong{display:block;overflow-wrap:anywhere}
+.preset-row .sub{font-size:11px}
+.preset-actions{display:flex;gap:5px}
+.preset-actions .btn,#presetEditor .btn{min-height:44px;font-size:12px;padding:8px}
+.preset-actions .btn:disabled{opacity:.5;cursor:default}
+#presetEditor{margin-top:10px;scroll-margin:8px}
+#presetEditor label{display:block}
+#presetName{display:block;width:100%;min-height:44px;margin-top:4px;padding:8px 10px;color:var(--text);background:#0e171c;border:1px solid #3a5c64;border-radius:9px;font:inherit;font-size:16px;user-select:text}
+.boss-builds{margin-top:12px;padding-top:10px;border-top:1px solid #4b3730}
+.boss-build-list{display:grid;gap:5px;margin:6px 0}
+.boss-build{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;align-items:center;width:100%;min-height:44px;padding:7px 9px;border:1px solid #4b3730;border-radius:10px;background:#151e22;text-align:left}
+.boss-build strong{overflow-wrap:anywhere}
+.boss-build .sub{grid-column:1/-1}
+.boss-build .estimate{font-size:12px;font-variant-numeric:tabular-nums}
+.boss-build[aria-pressed=true]{border-color:var(--lime);background:#243220}
+.boss-build .recommended{color:var(--amber)}
+#bossBuildStatus{margin:6px 0 0}
+#bossRunBuild{margin-top:8px}
+#race.active{display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
+.race-body{overflow:hidden;min-height:0;flex:1}
+.crate-dock{flex:none;margin:7px 0 4px;padding:9px 10px;border:1px solid #3f5650;border-radius:15px;background:#111e24}
+.crate-dock header{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.crate-dock header .sub{font-size:11px;text-align:right}
+.crate-stock{color:var(--lime);white-space:nowrap;font-size:12px}
+.crate-dock .actions{margin-top:6px}
+.crate-dock .btn{min-height:44px;padding:6px;font-size:12px}
+.crate-dock .toggle{margin-top:3px}
+#lootDialog{box-sizing:border-box;width:calc(100% - 28px);max-width:470px;max-height:calc(100% - 24px);padding:16px;color:var(--text);border:1px solid #52766d;border-radius:20px;background:#142229;box-shadow:var(--shadow)}
+#lootDialog::backdrop{background:#03080dcc}
+#lootDialog .btn{min-height:44px;padding:8px;font-size:12px}
+#lootDialog h2{margin:4px 0}
+#bossReport .bench-table{text-align:left}
+#bossReport .bench-table td:last-child{color:var(--muted)}
+#bossReport .report-reward{margin:10px 0 0;color:var(--lime)}
+@media(max-height:850px){
+  #race .hero{padding:12px}
+  #race .canvas-wrap canvas{height:135px}
+  #race .shift{padding:10px}
+  #race .race-description{display:none}
+  #race .race-brief{padding:5px 8px}
+  #race .race-meta{margin-top:7px}
+}
+.auto-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:end;margin-top:6px}
+.auto-controls label{display:grid;gap:2px;color:var(--muted);font-size:10px}
+.auto-controls select{min-height:44px;width:100%;padding:6px 8px;background:#0e171c;color:var(--text);border:1px solid #3a5c64;border-radius:10px;font:inherit;font-size:13px;color-scheme:dark}
+.auto-controls .btn{min-width:110px}
+.crate-dock .btn:disabled{opacity:.47;cursor:default}
+#autoStatus{margin:5px 0 0;min-height:1.4em;font-size:11px}
+#lootAutoNote{margin:8px 0;color:var(--lime)}
+@media(max-height:770px){
+  #race .canvas-wrap canvas{height:105px}
+  #race .log{display:none}
+}
+.resources .pill{white-space:nowrap}
+.race-controls{flex:none}
+.race-controls .shift{margin-top:7px}
+@media(max-width:360px){
+  .topbar{gap:6px;padding-inline:12px}
+  .resources{gap:4px}
+  .resources .pill{padding-inline:6px}
+}
+@media(max-height:700px){
+  #race .race-brief{display:none}
+  #race .title{font-size:22px}
+  #race .canvas-wrap canvas{height:90px}
+}
+.race-controls.boss-ready{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:6px;align-items:stretch;margin-top:7px}
+.race-controls.boss-ready .shift,#bossChallenge{margin:0;min-height:44px;width:100%}
+.race-controls.boss-ready .shift b{font-size:21px}
+.race-controls.boss-ready .shift small{font-size:10px}
+.race-kicker{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.race-tools{display:flex;gap:4px;flex:none}
+.race-tools .btn{min-height:44px;padding:5px 8px;font-size:11px}
+#lootReveal{min-height:156px;display:grid;justify-items:center;align-content:center;gap:15px}
+.loot-box{position:relative;width:72px;height:59px;display:grid;place-items:center;border:2px solid var(--lime);border-radius:10px;background:repeating-linear-gradient(120deg,#24392d 0 8px,#1c2d29 8px 16px);color:var(--lime);font-weight:900;font-size:20px;box-shadow:0 0 30px #c8ff4d30;animation:crate-open .42s ease-out both}
+.loot-box::before{content:"";position:absolute;inset:0 0 auto;height:16px;background:#304a35;border-bottom:2px solid var(--lime);border-radius:7px 7px 0 0;transform-origin:left bottom;animation:crate-lid .42s ease-out both}
+@keyframes crate-open{0%{transform:scale(.84) translateY(6px)}40%{transform:rotate(-5deg)}72%{transform:rotate(3deg) scale(1.1)}100%{transform:scale(1)}}
+@keyframes crate-lid{0%,45%{transform:rotate(0)}100%{transform:rotate(-32deg) translateY(-3px)}}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="topbar"><div class="brand">RING<span>RUSH</span></div><div class="resources"><div class="pill" id="levelPill">Ур. <b id="raceLevel">1</b></div><div class="pill">¤ <b id="credits">0</b></div><div class="pill">XP <b id="xp">0</b></div></div></header>
+<div id="toast" class="toast-pop"></div><div id="bossOverlay" class="boss-overlay" role="dialog" aria-modal="true" aria-labelledby="bossName"><div class="boss-card"><div class="boss-kicker">BOSS RACE · ЭТАП <span id="bossStage">1</span></div><div class="boss-title" id="bossName">Ночной хищник</div><div class="boss-sub">Догони соперника за 35 секунд. Следи за нагревом и переключай передачу в зелёной зоне.</div><div class="boss-sector sub" id="bossSector" hidden><b id="bossSectorName"></b><span id="bossRivalPace"></span></div><div class="boss-stats" id="bossLiveStats"><div class="boss-stat"><small>ТАЙМЕР</small><b id="bossOverlayTimer">00:35</b></div><div class="boss-stat"><small>ОТСТАВАНИЕ</small><b id="bossGap">56 м</b></div><div class="boss-stat"><small>СКОРОСТЬ, КМ/Ч</small><b id="bossSpeed">120</b></div></div><div class="progress"><i id="bossScoreBar" style="width:0%"></i></div><div class="boss-reward"><span class="reward-chip">¤ <b id="bossRewardCredits">360</b></span><span class="reward-chip">XP <b id="bossRewardXp">40</b></span><span class="reward-chip">Ящики +<b id="bossRewardCrates">3</b></span><span class="reward-chip">🏁 Новый этап</span></div><div class="sub" id="bossTelemetry" hidden></div>
+<div class="sub" id="bossRunBuild" hidden></div>
+<section id="bossBuilds" class="boss-builds" aria-labelledby="bossBuildTitle" hidden>
+  <strong id="bossBuildTitle">Сборка на заезд</strong>
+  <div id="bossBuildList" class="boss-build-list"></div>
+  <p class="sub" id="bossBuildStatus" aria-live="polite"></p>
+</section><button class="shift" id="bossShift" hidden><b>SHIFT ↗</b><small id="bossShiftHint">Зелёная зона — точное переключение</small><span class="meter"><i id="bossShiftMeter"></i></span></button><section id="bossReport" hidden aria-label="Итоги заезда"></section><div class="boss-actions" style="margin-top:8px"><button type="button" class="btn" id="bossSoundToggle" aria-label="Звук" aria-pressed="false" hidden>Звук выкл.</button><button class="btn" id="bossCancel">Позже</button><button class="btn primary" id="bossStart">Начать босс-заезд</button></div></div></div>
+<dialog id="lootDialog" aria-labelledby="lootTitle">
+  <div id="lootReveal" hidden role="status"><div class="loot-box" aria-hidden="true">RR</div><strong>Контейнер открывается…</strong></div>
+  <div id="lootDetails"><div class="eyebrow" id="lootType"></div>
+  <h2 id="lootTitle">Сравнение находки</h2>
+  <div id="lootComparison"></div>
+  <p class="sub" id="lootAutoNote" hidden></p>
+  <div class="actions">
+    <button type="button" class="btn" id="lootKeep">В запас</button>
+    <button type="button" class="btn primary" id="lootEquip">Установить</button>
+    <button type="button" class="btn warn" id="lootSell">Продать</button>
+  </div>
+  </div>
+</dialog>
+<main>
+<section id="race" class="screen active">
+<div class="race-body"><div class="hero">
+<div class="race-kicker"><div class="eyebrow">КОЛЬЦО GT · ЭТАП <span id="stage">1</span></div>
+  <div class="race-tools">
+    <button type="button" class="btn" id="soundToggle" aria-label="Звук" aria-pressed="false">Звук выкл.</button>
+  </div>
+</div>
+<div class="title" id="raceTitle">Сектор «Северный вираж»</div>
+<div class="sub race-description">Догони соперника. Точное переключение ускоряет машину и греет мотор.</div>
+<div class="race-brief sub"><b id="raceBossName"></b> <span id="raceBossHint"></span></div>
+<div class="race-meta"><span>До босса <b id="bossProgress">3 / 5</b></span><span id="bossTimer">--:--</span></div>
+<div class="progress"><i id="bossBar" style="width:60%"></i></div>
+<div class="canvas-wrap"><canvas id="raceCanvas"></canvas><div class="race-chip left">ДО СОПЕРНИКА <b id="gap">42 м</b></div><div class="race-chip right">⚡ <b id="speed">120</b> км/ч</div></div>
+<div class="stats"><div class="stat"><small>НАГРЕВ МОТОРА</small><strong><span id="heat">32</span>%</strong><div class="progress"><i id="heatBar" style="width:32%;background:linear-gradient(90deg,#69e2e8,#ffb84d,#ff6b5e)"></i></div></div><div class="stat"><small>СЕРИЯ ОБГОНОВ</small><strong>x<span id="combo">1.0</span></strong><div class="sub">+<span id="comboReward">30</span>¤ / обгон</div></div></div>
+<div class="log" id="raceLog"><div class="toast">🏁 Гонка стартовала</div><div class="toast">💨 Слипстрим активен</div></div>
+</div></div>
+<div class="race-controls">
+<button class="shift" id="shiftBtn"><b>SHIFT ↗</b><small id="shiftHint">Зелёная зона — точное переключение</small><span class="meter"><i id="shiftMeter"></i></span></button>
+<button class="btn warn" id="bossChallenge" hidden>Вызвать босса</button>
+</div>
+<section class="crate-dock" aria-label="Контейнер деталей">
+  <header><strong>Контейнер · ур. <span id="crateLevel">1</span></strong><span class="crate-stock">Запас: <b id="crateStock">0</b></span></header>
+  <div class="sub" id="crateChance"></div>
+  <div class="actions">
+    <button type="button" class="btn primary" id="openCrate">Открыть · 150¤</button>
+    <button type="button" class="btn warn" id="upgradeCrate">Улучшить · 360¤</button>
+  </div>
+  <div class="auto-controls">
+    <label>Мин. редкость для автооткрытия<select id="autoMinRarity"></select></label>
+    <button type="button" class="btn" id="autoStart">Автооткрытие</button>
+  </div>
+  <p class="sub" id="autoStatus" role="status"></p>
+</section>
+</section>
+<section id="garage" class="screen">
+<div class="section-head"><h2>Гараж</h2><span>Сборка <b id="buildScore">128</b></span></div>
+<div class="panel garage-car"><img id="garageCar" src="assets/vaz08_card.png" alt="Текущий автомобиль"><div><span class="tag">RING GT</span><div class="car-name" id="garageName">VAZ-08 Samara</div><div class="sub">Ур. <b id="garageLevel">1</b> · +<span id="classBonus">5</span>% к рывку</div><div class="actions"><button class="btn primary" id="equipBest">Автосборка</button><button class="btn" id="testDrive" aria-expanded="false" aria-controls="buildBenchmark">Сравнить сборки</button></div></div></div>
+<div class="section-head"><h2>Пресеты сборок</h2></div>
+<div class="panel presets">
+  <div id="presetList" class="preset-list"></div>
+  <form id="presetEditor" hidden>
+    <label for="presetName">Название комплекта</label>
+    <input id="presetName" type="text" maxlength="24" autocomplete="off" required>
+    <p class="sub" id="presetSaveHint"></p>
+    <div class="actions">
+      <button type="button" class="btn" id="presetCancel">Отмена</button>
+      <button type="submit" class="btn primary" id="presetSubmit">Сохранить</button>
+    </div>
+  </form>
+</div>
+<div class="panel" id="buildPerformance"></div>
+<div class="panel" id="buildBenchmark" hidden tabindex="-1" aria-label="Сравнение сборок"></div>
+<div class="section-head"><h2>Сборка</h2><span>8 слотов</span></div>
+<div class="inventory-slots" id="partsGrid" aria-label="Слоты сборки"></div>
+<div class="section-head"><h2>Инвентарь</h2><span id="inventoryCount"></span></div>
+<div class="panel inventory-filters">
+<label>Тип<select id="partType"><option value="">Все типы</option></select></label>
+<label>Редкость<select id="partRarity"><option value="">Все редкости</option></select></label>
+<label>Статус<select id="partStatus"><option value="">Все детали</option><option value="equipped">Установленные</option><option value="spare">Запасные</option></select></label>
+<label>Сортировка<select id="partOrder"><option value="rarity">Редкость ↓</option><option value="rarity-asc">Редкость ↑</option><option value="power">Сила ↓</option><option value="newest">Сначала новые</option></select></label>
+</div>
+<div id="partInspector" class="panel inspector" hidden></div>
+<div id="inventoryList" class="inventory-layout"></div>
+</section>
+<section id="evolution" class="screen">
+<div class="section-head"><h2>Эволюция кузова</h2><span>ветка Ring GT</span></div>
+<div class="panel"><div class="eyebrow">КЛАССОВЫЙ БОНУС</div><div class="title">Чистая скорость</div><div class="sub" id="levelProgress"></div><div class="sub">Новый кузов открывается за уровень машины и усиливает рывок.</div></div>
+<div class="evo" id="evoTree"></div>
+</section>
+</main>
+<nav class="bottom"><div class="nav"><button class="active" data-screen="race">🏁<br>Гонка</button><button data-screen="garage">🔧<br>Гараж</button><button data-screen="evolution">Эволюция</button></div></nav>
+</div>
+<script>
+const CFG={saveKey:'ring-rush-save-v1',offlineCap:8*3600,parts:['Двигатель','Турбина','КПП','Слики','Подвеска','Тормоза','Радиатор','Спойлер'],icons:['🧰','🌀','⚙️','◉','⌁','⛓','❄️','▰'],rarities:[['Обычная','#9da9aa',1],['Необычная','#69e2e8',1.08],['Редкая','#8e9cff',1.18],['Эпик','#c982ff',1.32],['Легендарная','#ffbe55',1.5],['Мифическая','#ff6b9f',1.72],['Прототип','#e7ff73',2.0]],cars:[{id:'vaz08',name:'VAZ-08 Samara',level:1,side:'assets/vaz08_side.png',card:'assets/vaz08_card.png',bonus:5},{id:'e46_club',name:'BM E46 Clubsport',level:15,side:'assets/e46_club_side.png',card:'assets/e46_club_card.png',bonus:14},{id:'e46_gtr',name:'BM E46 GTR Touring',level:50,side:'assets/e46_gtr_side.png',card:'assets/e46_gtr_card.png',bonus:26},{id:'gt3rs',name:'Porsche 911 GT3-RS',level:100,side:'assets/gt3rs_side.png',card:'assets/gt3rs_card.png',bonus:44}]};
+const PRESET_COUNT=3;
+const PRESET_NAME_LENGTH=24;
+const CRATE_PRICE=150;
+const CRATE_XP=2;
+const MAX_COMBO=2.5;
+const MAX_SALE_PRICE=Math.floor(CRATE_PRICE*.7);
+const CRITICAL_NITRO_CHANCE=.28;
+const DOUBLE_DASH_CHANCE=.18;
+const OVERTAKE_CRATES=1;
+const BOSS_CRATES=3;
+const AUTO_OPEN_LIMIT=25;
+const AUTO_OPEN_INTERVAL=850;
+const LOOT_REVEAL_MS=420;
+const DEFAULT_AUTO_RARITY=3;
+const PART_ASSETS={
+  'Двигатель':'assets/parts/engine.svg','Турбина':'assets/parts/turbo.svg','КПП':'assets/parts/gearbox.svg','Слики':'assets/parts/tires.svg',
+  'Подвеска':'assets/parts/suspension.svg','Тормоза':'assets/parts/brakes.svg','Радиатор':'assets/parts/radiator.svg','Спойлер':'assets/parts/wing.svg'
+};
+const PART_FLOORS=[5,8,11,15,20,27,36];
+const fresh=()=>({credits:980,xp:0,level:1,stage:1,wins:2,heat:32,combo:1,containerLevel:1,crates:0,parts:[],equipped:{},presets:Array(PRESET_COUNT).fill(null),nextPartId:1,lastSeen:Date.now(),autoMinRarity:DEFAULT_AUTO_RARITY,soundEnabled:false});
+let selectedPart=null, lootId=null;
+let state=loadState(), screen='race', audioCtx=null, carImages={};
+let racePaused=false, exhaustAge=Infinity, exhaustStrength=1;
+let audioMaster=null, motor=null, motorIsAudible=false;
+function valid(s){if(!s||typeof s!=='object')return false;return Number.isFinite(s.credits)&&Number.isFinite(s.level)&&s.level>=1&&s.level<10000}
+function normalizeInventory(save){
+  const validPart=(item,part)=>CFG.parts.includes(part) && item &&
+    Number.isInteger(item.rarity) && item.rarity>=0 && item.rarity<CFG.rarities.length &&
+    Number.isFinite(item.power) && item.power>0 && item.power<=1e9 &&
+    Number.isInteger(item.level) && item.level>=1 && item.level<=10000;
+  const parts=[], equipped={}, ids=new Set();
+  if(Array.isArray(save.parts)){
+    for(const item of save.parts){
+      if(!validPart(item,item?.part) || !Number.isSafeInteger(item.id) || item.id<1 || ids.has(item.id)) continue;
+      const {id,part,rarity,power,level}=item;
+      parts.push({id,part,rarity,power,level});
+      ids.add(id);
+    }
+    for(const item of parts){
+      if(save.equipped?.[item.part]===item.id) equipped[item.part]=item.id;
+    }
+  }else{
+    for(const part of CFG.parts){
+      const found=save.parts?.[part], mounted=save.equipped?.[part];
+      const add=item=>{
+        const {rarity,power,level}=item;
+        parts.push({id:parts.length+1,part,rarity,power,level});
+        return parts.length;
+      };
+      const hasFound=validPart(found,part), hasMounted=validPart(mounted,part);
+      if(hasMounted && hasFound && found.id!=null && found.id===mounted.id){
+        equipped[part]=add(found.power>=mounted.power?found:mounted);
+      }else{
+        if(hasFound) add(found);
+        if(hasMounted) equipped[part]=add(mounted);
+      }
+    }
+  }
+  const nextPartId=parts.reduce((next,item)=>Math.max(next,item.id+1),1);
+  const previous=Number.isSafeInteger(save.nextPartId)?save.nextPartId:1;
+  return {parts,equipped,nextPartId:Math.max(nextPartId,previous)};
+}
+function loadState(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(CFG.saveKey));
+    const save=valid(raw)?{...fresh(),...raw,...normalizeInventory(raw)}:fresh();
+    save.presets=normalizePresets(save.presets,Array.isArray(raw?.parts));
+    save.autoMinRarity=validAutoRarity(raw?.autoMinRarity)
+      ? raw.autoMinRarity
+      : raw?.autoOpen===true?4:DEFAULT_AUTO_RARITY;
+    save.soundEnabled=raw?.soundEnabled===true;
+    delete save.autoOpen;
+    delete save.testMode;
+    save.crates=Number.isSafeInteger(save.crates)?Math.max(0,save.crates):0;
+    save.containerLevel=Number.isSafeInteger(save.containerLevel)?Math.max(1,save.containerLevel):1;
+    save.level=Math.floor(save.level);
+    save.xp=Math.max(Number.isFinite(save.xp)?Math.floor(save.xp):0,xpForLevel(save.level));
+    gainExperience(save,0);
+    save.stage=Number.isSafeInteger(save.stage)?Math.max(1,Math.min(1000000,save.stage)):1;
+    save.wins=Number.isFinite(save.wins)?Math.max(0,Math.min(5,Math.trunc(save.wins))):0;
+    if(raw?.bossActive===true && save.wins>=4) save.wins=5;
+    delete save.bossActive;
+    delete save.bossTime;
+    delete save.bossScore;
+    save.combo=Number.isFinite(save.combo)?Math.max(1,Math.min(MAX_COMBO,save.combo)):1;
+    save.heat=Number.isFinite(save.heat)?Math.max(0,Math.min(100,save.heat)):32;
+    applyOfflineProgress(save);
+    return save;
+  }catch{return fresh()}
+}
+function saveState(){state.lastSeen=Date.now();try{localStorage.setItem(CFG.saveKey,JSON.stringify(state))}catch{}}
+function applyOfflineProgress(s){const elapsed=Math.max(0,Math.min(CFG.offlineCap,(Date.now()-(s.lastSeen||Date.now()))/1000));if(elapsed>20){const reward=Math.floor(elapsed/30)*3;s.credits+=reward;gainExperience(s,Math.floor(elapsed/45));notify('Офлайн-рейс: +'+reward+'¤')}s.lastSeen=Date.now()}
+function carForLevel(){return [...CFG.cars].reverse().find(c=>state.level>=c.level)||CFG.cars[0]}
+function xpForLevel(level){
+  const n=level-1;
+  return 3*n*n+30*n;
+}
+function gainExperience(save,amount){
+  const limit=9999, before=save.level;
+  save.xp=Math.min(Number.MAX_SAFE_INTEGER,save.xp+amount);
+  while(save.level<limit && save.xp>=xpForLevel(save.level+1)) save.level++;
+  if(amount>0 && save.level>before && document.getElementById('toast')){
+    const car=CFG.cars.find(item=>item.level>before && item.level<=save.level);
+    if(car) notify('Открыта новая машина: '+car.name);
+  }
+}
+function crateBoost(level){
+  const extra=Math.max(0,level-7);
+  return .035*Math.min(level,7)+.30*extra/(extra+20);
+}
+function prototypeChance(level){return crateBoost(level)+.015}
+function crateUpgradePrice(level){return 360+90*(level-1)}
+function rarityFor(level){
+  const roll=Math.random()+crateBoost(level);
+  return roll>.985?6:roll>.93?5:roll>.82?4:roll>.63?3:roll>.4?2:roll>.18?1:0;
+}
+function fmt(n){return Math.floor(n).toLocaleString('ru-RU')}
+function notify(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
+function buzz(ms=12){if(navigator.vibrate)navigator.vibrate(ms)}
+function ensureAudio(){
+  try{
+    if(!audioCtx){
+      const Context=window.AudioContext||window.webkitAudioContext;
+      if(!Context) return false;
+      audioCtx=new Context();
+      audioMaster=audioCtx.createGain();
+      audioMaster.gain.value=.56;
+      audioMaster.connect(audioCtx.destination);
+    }
+    if(audioCtx.state==='suspended') audioCtx.resume().catch(()=>{});
+    return !!audioMaster;
+  }catch{return false}
+}
+function makeMotor(){
+  const filter=audioCtx.createBiquadFilter();
+  filter.type='lowpass';
+  filter.frequency.value=420;
+  const volume=audioCtx.createGain(), body=audioCtx.createOscillator(), texture=audioCtx.createOscillator();
+  const textureGain=audioCtx.createGain();
+  volume.gain.value=0;
+  textureGain.gain.value=.23;
+  body.type='triangle';
+  texture.type='sawtooth';
+  body.connect(filter);
+  texture.connect(textureGain).connect(filter);
+  filter.connect(volume).connect(audioMaster);
+  body.start();
+  texture.start();
+  return {body,texture,filter,volume};
+}
+function raceAdvancing(){
+  return screen==='race' && !racePaused && lootId===null && !document.hidden &&
+    (bossPhase==='closed' || bossPhase==='running');
+}
+function syncMotor(){
+  if(!audioCtx || !audioMaster) return;
+  const now=audioCtx.currentTime;
+  const audible=state.soundEnabled && raceAdvancing();
+  if(!audible){
+    if(motorIsAudible) motor.volume.gain.setTargetAtTime(0,now,.025);
+    motorIsAudible=false;
+    return;
+  }
+  motor??=makeMotor();
+  motorIsAudible=true;
+  const pit=trackRun.pit>0;
+  const boost=trackRun.boostTime>0;
+  const shiftDrop=Math.max(0,1-exhaustAge/.18)*18;
+  const pitch=pit?40:40+trackRun.speed*.32+(boost?12:0)-shiftDrop;
+  motor.body.frequency.setTargetAtTime(pitch,now,.06);
+  motor.texture.frequency.setTargetAtTime(pitch*2+.8,now,.06);
+  motor.filter.frequency.setTargetAtTime(220+pitch*(boost?5:3.5),now,.08);
+  motor.volume.gain.setTargetAtTime(pit?.025:boost?.085:.055,now,.07);
+}
+function tone(freq=220,dur=.08,type='sine',finishFreq=freq){
+  if(!state.soundEnabled || !audioCtx || !audioMaster || document.hidden) return;
+  const now=audioCtx.currentTime;
+  const oscillator=audioCtx.createOscillator(),volume=audioCtx.createGain();
+  oscillator.type=type;
+  oscillator.frequency.setValueAtTime(freq,now);
+  oscillator.frequency.exponentialRampToValueAtTime(finishFreq,now+dur);
+  volume.gain.setValueAtTime(.0001,now);
+  volume.gain.exponentialRampToValueAtTime(.085,now+.012);
+  volume.gain.exponentialRampToValueAtTime(.0001,now+dur);
+  oscillator.connect(volume).connect(audioMaster);
+  oscillator.start();
+  oscillator.stop(now+dur+.01);
+}
+function renderRaceControls(){
+  for(const id of ['soundToggle','bossSoundToggle']){
+    const button=garageEl(id);
+    button.setAttribute('aria-pressed',String(state.soundEnabled));
+    button.textContent=state.soundEnabled?'Звук вкл.':'Звук выкл.';
+  }
+
+}
+function renderAll(){
+  renderRaceControls();
+  garageEl('credits').textContent=fmt(state.credits);
+  garageEl('xp').textContent=fmt(state.xp);
+  garageEl('raceLevel').textContent=state.level;
+  const progress=state.level<9999
+    ? `До уровня ${state.level+1}: ${fmt(xpForLevel(state.level+1)-state.xp)} XP`
+    : 'Достигнут максимальный уровень';
+  garageEl('levelPill').title=progress;
+  garageEl('levelProgress').textContent=`Уровень ${state.level} · ${progress}`;
+  garageEl('stage').textContent=state.stage;
+  const profile=stageProfile(state.stage);
+  garageEl('raceTitle').textContent=profile.boss.track;
+  garageEl('raceBossName').textContent=profile.boss.name+' ·';
+  garageEl('raceBossHint').textContent=profile.boss.hint;
+  const bossStage=state.stage-(bossPhase==='result' && bossResult==='win'?1:0);
+  garageEl('bossStage').textContent=bossStage;
+  const reward=bossReward(bossStage);
+  garageEl('bossRewardCredits').textContent=reward.credits;
+  garageEl('bossRewardXp').textContent=reward.xp;
+  garageEl('bossRewardCrates').textContent=reward.crates;
+  garageEl('bossProgress').textContent=state.wins+' / 5';
+  garageEl('bossBar').style.width=(state.wins*20)+'%';
+  const bossReady=state.wins>=5;
+  garageEl('bossChallenge').hidden=!bossReady;
+  document.querySelector('.hero').classList.toggle('boss-ready',bossReady);
+  document.querySelector('.race-controls').classList.toggle('boss-ready',bossReady);
+  garageEl('crateLevel').textContent=state.containerLevel;
+  const chance=prototypeChance(state.containerLevel)*100;
+  garageEl('crateChance').textContent='Прототип: '+decimal(chance)+'%';
+  garageEl('upgradeCrate').textContent='Улучшить · '+fmt(crateUpgradePrice(state.containerLevel))+'¤';
+  renderAutoOpen();
+  const car=carForLevel();
+  setCleanImage(garageEl('garageCar'),car.card);
+  garageEl('garageName').textContent=car.name;
+  garageEl('garageLevel').textContent=state.level;
+  garageEl('classBonus').textContent=car.bonus;
+  garageEl('buildScore').textContent=128+state.parts.reduce((sum,item)=>sum+(isEquipped(item)?item.power:0),0)+state.level*3;
+  performanceSpec=currentPerformance();
+  renderTelemetry();
+  renderBuildPerformance();
+  renderPresets();
+  renderParts();
+  renderEvolution();
+}
+const garageEl=id=>document.getElementById(id);
+const partStrength=(a,b)=>b.power-a.power || b.rarity-a.rarity || b.level-a.level || a.id-b.id;
+const equippedPart=part=>state.parts.find(item=>item.id===state.equipped[part]);
+const isEquipped=item=>state.equipped[item.part]===item.id;
+const getSelectedPart=()=>state.parts.find(item=>item.id===selectedPart);
+const priceToUpgrade=item=>80+item.level*60;
+const upgradedPower=item=>item.power+4+(item.level+1)*2;
+const priceToSell=item=>Math.min(MAX_SALE_PRICE,14+item.rarity*9+Math.floor(item.power));
+const saleXp=item=>item.rarity>=3?2:1;
+function collectSale(item){
+  const credits=priceToSell(item),xp=saleXp(item);
+  state.credits+=credits;
+  gainExperience(state,xp);
+  return {credits,xp};
+}
+
+function bestParts(){
+  const best=new Map();
+  for(const item of state.parts){
+    const current=best.get(item.part);
+    if(!current || partStrength(item,current)<0) best.set(item.part,item);
+  }
+  return best;
+}
+function visibleParts(){
+  const type=garageEl('partType').value, rarity=garageEl('partRarity').value;
+  const status=garageEl('partStatus').value;
+  const filtered=state.parts.filter(item=>
+    (!type || item.part===type) &&
+    (rarity==='' || item.rarity===Number(rarity)) &&
+    (!status || isEquipped(item)===(status==='equipped'))
+  );
+  const order=garageEl('partOrder').value;
+  return filtered.sort((a,b)=>{
+    if(order==='power') return partStrength(a,b);
+    if(order==='newest') return b.id-a.id;
+    const rarityDelta=order==='rarity-asc'?a.rarity-b.rarity:b.rarity-a.rarity;
+    return rarityDelta || partStrength(a,b);
+  });
+}
+function partAsset(part){return PART_ASSETS[part]||'assets/parts/engine.svg'}
+function renderParts(){
+  const best=bestParts();
+  const visible=visibleParts();
+  const equipped=new Map(state.parts.filter(isEquipped).map(item=>[item.part,item]));
+  garageEl('partsGrid').innerHTML=CFG.parts.map(part=>`
+    <button type="button" data-slot="${part}" aria-pressed="${garageEl('partType').value===part}">
+      <img class="part-thumb" src="${partAsset(part)}" alt="">${part}<small>${equipped.has(part)?'+'+equipped.get(part).power+'%':'Пусто'}</small>
+    </button>`).join('');
+  garageEl('inventoryCount').textContent=`${visible.length} из ${state.parts.length}`;
+  garageEl('inventoryList').innerHTML=visible.map(item=>{
+    const [rarity,color]=CFG.rarities[item.rarity];
+    const badges=[isEquipped(item)?'Установлена':'',best.get(item.part)===item?'Лучшая в слоте':''].filter(Boolean);
+    return `<button type="button" class="part inventory-item" data-item="${item.id}"
+      aria-pressed="${selectedPart===item.id}" style="--rarity:${color}">
+      <img class="part-thumb" src="${partAsset(item.part)}" alt=""><small>${item.part} · ур. ${item.level}</small><b>+${item.power}%</b>
+      <span class="rarity" style="color:${color}">${rarity}</span>
+      ${badges.length?'<small>'+badges.join(' · ')+'</small>':''}
+    </button>`;
+  }).join('') || `<p class="sub inventory-empty">${state.parts.length?'Нет деталей по этим фильтрам.':'Открой контейнер, чтобы получить первую деталь.'}</p>`;
+  renderInspector(best);
+}
+function partComparison(item, label){
+  const installed=equippedPart(item.part);
+  const [,color]=CFG.rarities[item.rarity];
+  const difference=item.power-(installed?.power??0);
+  const delta=difference===0?'Одинаковая сила':`${difference>0?'+':''}${difference} п. п.`;
+  return `
+    <div class="compare-grid">
+      <div class="compare-box new"><small>${label}</small><b style="color:${color}">+${item.power}%</b></div>
+      <div class="compare-box"><small>Установленная</small><b>${installed?'+'+installed.power+'%':'Пусто'}</b>
+        <span class="sub">${installed?delta:'Свободный слот'}</span></div>
+    </div>
+`;
+}
+function renderInspector(best){
+  const panel=garageEl('partInspector'), item=getSelectedPart();
+  panel.hidden=!item;
+  if(!item){panel.replaceChildren();return}
+  const strongest=best.get(item.part);
+  const [rarity]=CFG.rarities[item.rarity];
+  const canUpgrade=item.level<10000 && upgradedPower(item)<=1e9;
+  const canSell=!isEquipped(item);
+  panel.innerHTML=`
+    <img class="part-thumb" src="${partAsset(item.part)}" alt=""><div class="eyebrow">${item.part}</div>
+    <div class="title" style="font-size:20px" tabindex="-1" id="partTitle">${rarity} · ур. ${item.level}</div>
+    ${partComparison(item,'Выбранная')}
+    <div class="sub">${canUpgrade?'После улучшения: +'+upgradedPower(item)+'%':'Предел улучшений'} · ${canSell?'Продажа: '+priceToSell(item)+'¤':'Для продажи сначала сними деталь'}</div>
+    <div class="actions">
+      <button type="button" class="btn primary" id="upgradePart" ${canUpgrade?'':'disabled'}>Улучшить · ${priceToUpgrade(item)}¤</button>
+      <button type="button" class="btn" id="equipPart">${isEquipped(item)?'Снять':'Установить'}</button>
+      ${canSell?'<button type="button" class="btn warn" id="sellPart">Продать</button>':''}
+    </div>
+    ${strongest!==item?'<button type="button" class="btn" style="margin-top:8px;width:100%" id="pickBest">Выбрать лучшую · +'+strongest.power+'%</button>':''}`;
+}
+function selectInventoryPart(id){
+  selectedPart=id;
+  renderParts();
+  garageEl('partTitle')?.focus({preventScroll:true});
+}
+function resetInventoryFilters(){
+  for(const id of ['partType','partRarity','partStatus']) garageEl(id).value='';
+}
+function updateInventory(message){
+  const focused=document.activeElement;
+  saveState();
+  renderAll();
+  if(focused && !focused.isConnected){
+    (garageEl(focused.id) || garageEl('partTitle') || garageEl('partType')).focus({preventScroll:true});
+  }
+  notify(message);
+}
+function upgradeSelected(){
+  const item=getSelectedPart();
+  if(!item || item.level>=10000 || upgradedPower(item)>1e9) return;
+  const cost=priceToUpgrade(item);
+  if(state.credits<cost){notify('Нужно '+cost+'¤');return}
+  state.credits-=cost;
+  item.power=upgradedPower(item);
+  item.level++;
+  updateInventory('Деталь улучшена до ур. '+item.level);
+}
+function equipSelected(){
+  const item=getSelectedPart();
+  if(!item) return;
+  const removing=isEquipped(item);
+  if(removing) delete state.equipped[item.part];
+  else state.equipped[item.part]=item.id;
+  if(garageEl('partStatus').value) garageEl('partStatus').value=removing?'spare':'equipped';
+  buzz(14);
+  updateInventory(removing?'Деталь снята':'Деталь установлена');
+}
+function sellSelected(){
+  const item=getSelectedPart();
+  if(!item || isEquipped(item)) return;
+  state.parts=state.parts.filter(part=>part.id!==item.id);
+  const {credits,xp}=collectSale(item);
+  selectedPart=null;
+  updateInventory(`Деталь продана · +${credits}¤ · +${xp} XP`);
+}
+function renderEvolution(){document.getElementById('evoTree').innerHTML=CFG.cars.map(c=>{const ok=state.level>=c.level;return '<div class="node '+(ok?'unlocked':'locked')+'"><div class="node-dot"></div><div class="node-card"><img src="'+c.card+'" alt=""><div><h3>'+c.name+'</h3><p>Ур. '+c.level+' · '+(ok?'Открыто · +'+c.bonus+'% к рывку':'Нужно ещё '+(c.level-state.level)+' ур.')+'</p></div></div></div>'}).join('');document.querySelectorAll('#evoTree img').forEach((img,i)=>setCleanImage(img,CFG.cars[i].card))}
+const cleanCardUrls=new Map();
+function setCleanImage(el,src){
+  if(el.dataset.carSrc===src) return;
+  el.dataset.carSrc=src;
+  el.src=src;
+  const im=loadCar(src);
+  const apply=()=>{
+    const processed=carImages[src];
+    if(el.dataset.carSrc!==src || !(processed instanceof HTMLCanvasElement)) return;
+    if(!cleanCardUrls.has(src)) cleanCardUrls.set(src,processed.toDataURL('image/png'));
+    el.src=cleanCardUrls.get(src);
+  };
+  if(im instanceof HTMLCanvasElement || im.complete) apply();
+  else im.addEventListener('load',apply,{once:true});
+}
+function setScreen(name){
+  if(name!=='race') stopAutoOpen('Автооткрытие остановлено');
+  screen=name;
+  document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===name));
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.screen===name));
+  if(name==='race') resizeCanvas();
+  syncMotor();
+  if(name!=='garage' && !garageEl('presetEditor').hidden) garageEl('presetCancel').click();
+}
+function addLog(t){const l=document.getElementById('raceLog');const x=document.createElement('div');x.className='toast';x.textContent=t;l.prepend(x);while(l.children.length>3)l.lastChild.remove()}
+// Timing, opponent pace and pit rules are shared by the track and the garage comparison.
+const RACE={
+  stockSpeed:180, stockAccel:21, startSpeed:120, regularGap:42,
+   pitSeconds:2.8, shiftInterval:.75, shiftCycle:2.4,
+  shiftWindow:[.65,.88], step:.05, compareSample:10
+};
+const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+const BOSS_PROFILES=[
+  {
+    name:'Ночной хищник', track:'Северная прямая',
+    hint:'Длинные прямые. Двигатель, турбина и КПП помогают держать скорость.',
+    gap:68, limit:32,
+    sectors:[
+      {name:'Длинная прямая',duration:8,pace:192},
+      {name:'Разгон на выходе',duration:4,pace:186}
+    ]
+  },
+  {
+    name:'Апекс', track:'Связка шикан',
+    hint:'Частые виражи. Слики, подвеска и тормоза сохраняют темп.',
+    gap:62, limit:29,
+    sectors:[
+      {name:'Торможение',duration:3,pace:176,corner:1},
+      {name:'Связка виражей',duration:5,pace:171,corner:1},
+      {name:'Короткая прямая',duration:2,pace:202}
+    ]
+  },
+  {
+    name:'Термал', track:'Горячее кольцо',
+    hint:'Жара и длинная погоня. Радиатор и тормоза помогают обойтись без пит-стопа.',
+    gap:122, limit:34,
+    sectors:[
+      {name:'Горячий асфальт',duration:9,pace:190,heat:13.5,corner:.25},
+      {name:'Подъём',duration:6,pace:196,heat:15.2,corner:.25}
+    ]
+  }
+];
+function stageProfile(stage){
+  const index=Math.max(0,stage-1);
+  const boss=BOSS_PROFILES[index%BOSS_PROFILES.length];
+  // Gains are strongest in the first chapters. A cap keeps older builds useful later.
+  const growth=1-Math.exp(-index/15);
+  return {
+    boss,
+    paceBonus:48*growth,
+    bossGap:boss.gap+Math.round(16*growth),
+    regularPace:150+24*growth,
+    regularGap:RACE.regularGap+Math.round(12*growth)
+  };
+}
+function bossSection(profile,time){
+  const sectors=profile.boss.sectors;
+  let position=time%sectors.reduce((sum,sector)=>sum+sector.duration,0);
+  for(const sector of sectors){
+    if(position<sector.duration) return sector;
+    position-=sector.duration;
+  }
+  return sectors[0];
+}
+function buildPerformance(parts, classBonus=5){
+  const gain=type=>{
+    const power=parts[type]||0;
+    return power/(100+power);
+  };
+  const engine=gain('Двигатель'), turbo=gain('Турбина'), gearbox=gain('КПП');
+  const tires=gain('Слики'), suspension=gain('Подвеска'), brakes=gain('Тормоза');
+  const radiator=gain('Радиатор'), wing=gain('Спойлер');
+  return {
+    top:RACE.stockSpeed+62*engine+72*turbo+38*gearbox+46*wing,
+    acceleration:RACE.stockAccel+40*engine+44*turbo+36*tires+34*suspension,
+    shiftBoost:(23+42*gearbox+32*turbo+20*wing)*(1+classBonus/100),
+    boostDuration:1.0+2.0*gearbox+1.5*suspension,
+    cooling:2.05+5.8*radiator+1.3*brakes,
+    shiftHeat:8*(1-.95*radiator-.42*brakes-.28*gearbox),
+    loadHeat:2.2+.8*engine+1.4*turbo-.3*tires,
+    pitTime:RACE.pitSeconds-2*brakes-1.2*radiator,
+    cornerSpeed:127+155*tires+150*suspension+120*brakes,
+    heatResistance:Math.max(.12,1-2.3*radiator-.75*brakes)
+  };
+}
+function performanceForSlots(slots){
+  const parts=state.parts.filter(item=>slots[item.part]===item.id);
+  return buildPerformance(Object.fromEntries(parts.map(item=>[item.part,item.power])),carForLevel().bonus);
+}
+function currentPerformance(){
+  return performanceForSlots(state.equipped);
+}
+function createRun(gap,heat=32){
+  return {speed:RACE.startSpeed,gap,heat,time:0,pit:0,boost:0,boostTime:0,nextShift:0,peakHeat:heat,pitStops:0,pitSeconds:0,shifts:0,perfectShifts:0,criticalNitros:0,doubleDashes:0,doubleBoostPending:false,lastShiftEffect:'normal'};
+}
+const regularRun=()=>createRun(stageProfile(state.stage).regularGap,state.heat);
+let trackRun=regularRun();
+let performanceSpec;
+let bossPhase='closed';
+let bossResult=null;
+let bossSummary=null;
+let bossEncounter=null;
+let bossPreparation=null;
+let benchmarkStage=null;
+const bossReward=stage=>({credits:360+stage*80,xp:40+stage*10,crates:BOSS_CRATES});
+function gainCrates(amount){state.crates=Math.min(Number.MAX_SAFE_INTEGER,state.crates+amount)}
+
+function checkOverheat(run,spec){
+  run.peakHeat=Math.max(run.peakHeat,run.heat);
+  if(run.heat<100 || run.pit>0) return;
+  run.pit=spec.pitTime;
+  run.pitStops++;
+  run.boostTime=0;
+}
+function applyGear(run,spec,perfect){
+  if(run.pit>0 || run.time+1e-8<run.nextShift) return false;
+  run.nextShift=run.time+RACE.shiftInterval;
+  run.shifts++;
+  if(perfect) run.perfectShifts++;
+  const critical=perfect && Math.random()<CRITICAL_NITRO_CHANCE;
+  const doubleDash=perfect && Math.random()<DOUBLE_DASH_CHANCE;
+  run.boost=spec.shiftBoost*(perfect?(critical?2.15:1):.52);
+  run.boostTime=spec.boostDuration*(critical?1.25:1);
+  run.doubleBoostPending=doubleDash;
+  run.lastShiftEffect=critical&&doubleDash?'critical-double':critical?'critical':doubleDash?'double':'normal';
+  if(critical) run.criticalNitros++;
+  if(doubleDash) run.doubleDashes++;
+  run.heat=Math.min(100,run.heat+spec.shiftHeat*(perfect?1:.8));
+  checkOverheat(run,spec);
+  return true;
+}
+function stepRace(run,spec,dt,rivalSpeed,sector){
+  run.time+=dt;
+  if(run.pit>0){
+    run.pitSeconds+=Math.min(dt,run.pit);
+    run.speed=Math.max(65,run.speed-70*dt);
+    run.pit=Math.max(0,run.pit-dt);
+    run.heat=Math.max(45,run.heat-55/spec.pitTime*dt);
+    if(run.pit===0) run.heat=Math.min(45,run.heat);
+  }else{
+    const boost=run.boostTime>0?run.boost:0;
+    const speedLimit=sector?.corner
+      ? spec.top*(1-sector.corner)+spec.cornerSpeed*sector.corner+boost*(1-sector.corner)
+      : spec.top+boost;
+    const top=Math.min(spec.top+boost,speedLimit);
+    run.speed+=clamp(top-run.speed,-40*dt,(spec.acceleration+boost*1.8)*dt);
+    const boostWasActive=run.boostTime>0;
+    run.boostTime=Math.max(0,run.boostTime-dt);
+    if(boostWasActive && run.boostTime===0 && run.doubleBoostPending){
+      run.doubleBoostPending=false;
+      run.boost=spec.shiftBoost*.72;
+      run.boostTime=.62;
+    }
+    run.heat=clamp(run.heat+(spec.loadHeat*(run.speed/spec.top)**2+(sector?.heat??0)*spec.heatResistance-spec.cooling)*dt,0,100);
+    checkOverheat(run,spec);
+  }
+  run.gap=clamp(run.gap+(rivalSpeed-run.speed)*dt/3.6,0,160);
+}
+function stepEncounter(run,spec,dt,profile,sector){
+  const rivalSpeed=sector
+    ? sector.pace+profile.paceBonus
+    : profile.regularPace+3*Math.sin(run.time/2.7);
+  stepRace(run,spec,dt,rivalSpeed,sector);
+}
+function runBenchmark(spec,stage,heat=32){
+  const profile=stageProfile(stage);
+  const run=createRun(profile.bossGap,heat);
+  let peakSpeed=run.speed, peakHeat=run.heat, to160=null, finish=null, nextShift=1.8;
+  let finishStats=null;
+  for(let tick=0;tick<profile.boss.limit/RACE.step;tick++){
+    if(run.time+1e-8>=nextShift){
+      applyGear(run,spec,true);
+      if(run.time<RACE.compareSample) peakHeat=Math.max(peakHeat,run.heat);
+      nextShift+=RACE.shiftCycle;
+    }
+    stepEncounter(run,spec,RACE.step,profile,bossSection(profile,run.time));
+    if(finish===null){
+      if(to160===null && run.speed>=160) to160=run.time;
+      peakSpeed=Math.max(peakSpeed,run.speed);
+      if(run.gap<=0){
+        finish=run.time;
+        finishStats={...run};
+      }
+    }
+    if(run.time<=RACE.compareSample+1e-8) peakHeat=Math.max(peakHeat,run.heat);
+    if(finish!==null && run.time>=RACE.compareSample-1e-8) break;
+  }
+  const end=finishStats??run;
+  return {peakSpeed,to160,peakHeat,finish,pitStops:end.pitStops,pitSeconds:end.pitSeconds,
+    racePeakHeat:end.peakHeat,finalHeat:end.heat,remainingGap:end.gap};
+}
+const decimal=value=>value.toLocaleString('ru-RU',{minimumFractionDigits:1,maximumFractionDigits:1});
+function renderBuildPerformance(){
+  garageEl('buildPerformance').innerHTML=`<div class="stats" style="margin-top:0">
+    <div class="stat"><small>СКОРОСТЬ БЕЗ РЫВКА</small><strong>${Math.round(performanceSpec.top)} <small style="display:inline">км/ч</small></strong></div>
+    <div class="stat"><small>БАЗОВЫЙ РАЗГОН</small><strong>${decimal(performanceSpec.acceleration)} <small style="display:inline">км/ч за с</small></strong></div>
+    <div class="stat"><small>ОХЛАЖДЕНИЕ</small><strong>${decimal(performanceSpec.cooling)} <small style="display:inline">п. п./с</small></strong></div>
+    <div class="stat"><small>ЛИМИТ В КРУТОМ ВИРАЖЕ</small><strong>${Math.round(performanceSpec.cornerSpeed)} <small style="display:inline">км/ч</small></strong></div>
+    <div class="stat"><small>ЗАЩИТА ОТ ЖАРЫ</small><strong>${Math.round(100*(1-performanceSpec.heatResistance))}%</strong></div>
+    <div class="stat"><small>БОНУС РЫВКА К ЛИМИТУ</small><strong>+${Math.round(performanceSpec.shiftBoost)} <small style="display:inline">км/ч</small></strong></div>
+  </div>`;
+  if(!garageEl('buildBenchmark').hidden) renderBenchmark();
+}
+function renderBenchmark(){
+  const stage=benchmarkStage??state.stage;
+  const profile=stageProfile(stage);
+  const choices=Array.from({length:5},(_,index)=>Math.max(1,state.stage-2)+index);
+  if(!choices.includes(stage)) choices.push(stage);
+  const stock=runBenchmark(buildPerformance({},carForLevel().bonus),stage);
+  const tuned=runBenchmark(performanceSpec,stage);
+  const seconds=value=>value===null?'—':decimal(value)+' с';
+  const finish=value=>value===null?'Тайм-аут':seconds(value);
+  const rows=[
+    ['Пиковая скорость',Math.round(stock.peakSpeed)+' км/ч',Math.round(tuned.peakSpeed)+' км/ч'],
+    ['120 → 160 км/ч',seconds(stock.to160),seconds(tuned.to160)],
+    ['Пик нагрева за первые 10 с',Math.round(stock.peakHeat)+'%',Math.round(tuned.peakHeat)+'%'],
+    ['Пит-стопы',stock.pitStops,tuned.pitStops],
+    ['Обгон босса',finish(stock.finish),finish(tuned.finish)]
+  ];
+  garageEl('buildBenchmark').innerHTML=`<label class="bench-picker"><strong>Этап для сравнения</strong><select id="benchStage">
+    ${choices.map(choice=>`<option value="${choice}" ${choice===stage?'selected':''}>Этап ${choice}</option>`).join('')}
+    </select></label>
+    <p><strong>${profile.boss.name} · ${profile.boss.track}</strong><br><span class="sub">${profile.boss.hint}</span></p>
+    <p class="sub">Отрыв ${profile.bossGap} м, лимит ${profile.boss.limit} с. Обе сборки едут с одинаковым стартом и точными переключениями каждые 2,4 с. Нагрев сравнивается за 10 секунд.</p>
+    <table class="bench-table"><thead><tr><th scope="col">Параметр</th><th scope="col">Без деталей</th><th scope="col">Твоя сборка</th></tr></thead>
+    <tbody>${rows.map(([name,base,current])=>`<tr><th scope="row">${name}</th><td>${base}</td><td>${current}</td></tr>`).join('')}</tbody></table>`;
+}
+function sameSlots(left,right){
+  return CFG.parts.every(part=>left[part]===right[part]);
+}
+function bossBuildOptions(initial,stage,heat){
+  const options=state.presets.flatMap((preset,index)=>
+    preset?[{id:index,name:preset.name,...resolvePreset(preset)}]:[]);
+  if(!options.some(option=>!option.missing && sameSlots(option.slots,initial))){
+    options.unshift({id:-1,name:'Исходная сборка',slots:initial,missing:0});
+  }
+  for(const option of options){
+    option.spec=performanceForSlots(option.slots);
+    option.result=runBenchmark(option.spec,stage,heat);
+  }
+  const compare=(left,right)=>{
+    const a=left.result,b=right.result;
+    const timeA=a.finish??Infinity,timeB=b.finish??Infinity;
+    if(timeA!==timeB) return timeA<timeB?-1:1;
+    return (Math.ceil(a.remainingGap)-Math.ceil(b.remainingGap)) ||
+      (a.pitStops-b.pitStops) || (left.missing-right.missing);
+  };
+  const best=options.reduce((leader,option)=>compare(option,leader)<0?option:leader);
+  return {options,best,leaders:options.filter(option=>!compare(option,best))};
+}
+function prepareBoss(){
+  if(state.wins<5) return;
+  racePaused=false;
+  stopAutoOpen('Автооткрытие остановлено перед боссом');
+  bossPhase='ready';
+  bossResult=null;
+  bossEncounter=stageProfile(state.stage);
+  const heat=Math.min(70,state.heat);
+  const comparison=bossBuildOptions({...state.equipped},state.stage,heat);
+  const selected=comparison.options.find(option=>!option.missing && sameSlots(option.slots,state.equipped));
+  bossPreparation={...comparison,heat,selected};
+  renderBossBuilds();
+  updateBossOverlay();
+}
+function renderBossBuilds(){
+  const {options,best,leaders,selected}=bossPreparation;
+  const list=garageEl('bossBuildList');
+  const hasPresets=state.presets.some(Boolean);
+  const prediction=result=>result.finish===null
+    ? `Тайм-аут · отрыв ${Math.ceil(result.remainingGap)} м`
+    : `Обгон за ${decimal(result.finish)} с`;
+  list.innerHTML=options.map(option=>`
+    <button type="button" class="boss-build" data-boss-build="${option.id}" aria-pressed="${option===selected}" ${hasPresets?'':'disabled'}>
+      <strong></strong><span class="estimate">${prediction(option.result)}</span>
+      <span class="sub"></span>
+    </button>`).join('');
+  options.forEach((option,index)=>{
+    const row=list.children[index];
+    row.querySelector('strong').textContent=option.name;
+    const details=[];
+    if(option===selected) details.push('Выбрана');
+    const recommended=hasPresets && leaders.includes(option);
+    if(recommended){
+      details.push(best.result.finish===null?'Ближе всех к обгону':
+        leaders.length>1?'Лучший результат наравне':'Рекомендуется');
+    }
+    if(option.missing) details.push('Отсутствует: '+option.missing);
+    const note=row.querySelector('.sub');
+    note.textContent=details.join(' · ');
+    note.hidden=!details.length;
+    note.classList.toggle('recommended',recommended);
+  });
+  garageEl('bossBuildStatus').textContent=!hasPresets
+    ? 'Сохрани комплект в гараже, чтобы сравнить его здесь.'
+    : best.result.finish===null
+      ? 'По прогнозу, время выйдет у всех комплектов. Сравнение использует точные переключения каждые 2,4 с.'
+      : 'Прогноз при точных переключениях каждые 2,4 с.';
+}
+function updateBossOverlay(){
+  const open=bossPhase!=='closed';
+  garageEl('bossOverlay').classList.toggle('show',open);
+  document.querySelector('main').inert=open;
+  document.querySelector('.bottom').inert=open;
+  const running=bossPhase==='running', result=bossPhase==='result';
+  const profile=bossEncounter??stageProfile(state.stage);
+  garageEl('bossSector').hidden=!running;
+  garageEl('bossSoundToggle').hidden=!running;
+  renderRaceControls();
+  syncMotor();
+  garageEl('bossLiveStats').hidden=result;
+  garageEl('bossReport').hidden=!result;
+  if(result) renderBossReport();
+  garageEl('bossBuilds').hidden=bossPhase!=='ready';
+  garageEl('bossRunBuild').hidden=!running;
+  if(running) garageEl('bossRunBuild').textContent='Сборка: '+bossPreparation.selected.name;
+  document.querySelector('.boss-card .progress').hidden=!running;
+  garageEl('bossShift').hidden=!running;
+  garageEl('bossTelemetry').hidden=!running;
+  garageEl('bossCancel').hidden=result && bossResult==='win';
+  garageEl('bossCancel').textContent=running?'Прервать':result?'Продолжить гонки':'Позже';
+  garageEl('bossStart').hidden=running;
+  garageEl('bossStart').textContent=result?(bossResult==='win'?'Следующий этап':'Выбрать сборку'):'Начать заезд';
+  garageEl('bossName').textContent=result?(bossResult==='win'?'Победа':bossResult==='aborted'?'Заезд прерван':'Время вышло'):profile.boss.name;
+  document.querySelector('.boss-sub').textContent=result
+    ? bossEncounter.boss.name+' · '+bossPreparation.selected.name
+    : `Догони соперника за ${profile.boss.limit} с. ${profile.boss.hint}`;
+  document.querySelector('.boss-reward').hidden=result;
+  garageEl('bossOverlayTimer').textContent=clockText(profile.boss.limit);
+  garageEl('bossGap').textContent=profile.bossGap+' м';
+  garageEl('bossSpeed').textContent=RACE.startSpeed;
+  garageEl('bossScoreBar').style.width='0%';
+  renderTelemetry();
+  if(open) garageEl(running?'bossShift':'bossStart').focus();
+}
+const clockText=seconds=>'00:'+String(Math.ceil(seconds)).padStart(2,'0');
+const shiftPhase=run=>(run.time%RACE.shiftCycle)/RACE.shiftCycle;
+function renderTelemetry(){
+  const speed=Math.round(trackRun.speed), gap=Math.ceil(trackRun.gap), heat=Math.round(trackRun.heat);
+  const marker=shiftPhase(trackRun);
+  const delay=trackRun.nextShift-trackRun.time;
+  const hint=trackRun.pit>0?`Пит-стоп · ${decimal(trackRun.pit)} с`:delay>0?'Передача переключена':'Зелёная зона — точное переключение';
+  const disabled=racePaused || trackRun.pit>0 || delay>0;
+  garageEl('speed').textContent=speed;
+  garageEl('gap').textContent=gap+' м';
+  garageEl('heat').textContent=heat;
+  garageEl('heatBar').style.width=heat+'%';
+  garageEl('combo').textContent=state.combo.toFixed(1);
+  garageEl('comboReward').textContent=fmt(overtakeCredits());
+  garageEl('bossTimer').textContent=state.wins>=5?'Босс готов':'';
+  garageEl('shiftBtn').disabled=disabled;
+  garageEl('shiftHint').textContent=racePaused?'Гонка на паузе':hint;
+  garageEl('shiftMeter').style.left=(marker*100)+'%';
+  if(bossPhase==='running' || bossPhase==='result'){
+    const profile=bossEncounter;
+    const sector=bossSection(profile,trackRun.time);
+    garageEl('bossSectorName').textContent=sector.name;
+    garageEl('bossRivalPace').textContent='Соперник '+Math.round(sector.pace+profile.paceBonus)+' км/ч';
+    garageEl('bossOverlayTimer').textContent=clockText(Math.max(0,profile.boss.limit-trackRun.time));
+    garageEl('bossGap').textContent=gap+' м';
+    garageEl('bossSpeed').textContent=speed;
+    garageEl('bossScoreBar').style.width=(100*clamp(1-trackRun.gap/profile.bossGap,0,1))+'%';
+    garageEl('bossTelemetry').textContent='Нагрев мотора: '+heat+'%';
+    garageEl('bossShift').disabled=disabled;
+    garageEl('bossShiftHint').textContent=racePaused?'Таймер на паузе':hint;
+    garageEl('bossShiftMeter').style.left=(marker*100)+'%';
+  }
+}
+function shiftGear(){
+  const boss=bossPhase==='running';
+  if(racePaused || screen!=='race' || lootId!==null || (!boss && bossPhase!=='closed')) return;
+  const phase=shiftPhase(trackRun);
+  const perfect=phase>=RACE.shiftWindow[0] && phase<=RACE.shiftWindow[1];
+  const spec=boss?bossPreparation.selected.spec:performanceSpec;
+  if(!applyGear(trackRun,spec,perfect)) return;
+  state.heat=trackRun.heat;
+  exhaustAge=0;
+  exhaustStrength=perfect?1.5:1;
+  tone(perfect?370:260,.13,'triangle',perfect?145:108);
+  tone(82,.065,'sawtooth',51);
+  buzz(perfect?24:10);
+  if(trackRun.pit>0){
+    state.combo=1;
+    addLog('🛠 Пит-стоп · перегрев');
+    if(!boss) notify('Пит-стоп · перегрев');
+  }else{
+    const effect=trackRun.lastShiftEffect;
+    if(effect==='critical-double'){
+      addLog('🚀 КРИТИЧЕСКОЕ НИТРО · ДВОЙНОЙ РЫВОК');
+      notify('Критическое нитро и двойной рывок!');
+    }else if(effect==='critical'){
+      addLog('🚀 КРИТИЧЕСКОЕ НИТРО');
+      notify('Критическое нитро!');
+    }else if(effect==='double'){
+      addLog('⚡ ДВОЙНОЙ РЫВОК');
+      notify('Двойной рывок!');
+    }else if(!boss) notify(perfect?'Точное переключение':'Рывок');
+    if(effect!=='normal') tone(720,.16,'square',980);
+  }
+  renderTelemetry();
+}
+const overtakeCredits=()=>Math.floor(30*state.combo);
+const overtakeXp=stage=>Math.min(14,6+Math.floor((stage-1)/3));
+function regularOvertake(){
+  const reward=overtakeCredits(), xp=overtakeXp(state.stage);
+  const training=state.wins>=5;
+  state.credits+=reward;
+  gainExperience(state,xp);
+  gainCrates(OVERTAKE_CRATES);
+  state.combo=Math.min(MAX_COMBO,state.combo+.22);
+  if(!training) state.wins++;
+  addLog(`💨 ${training?'Тренировка':'Обгон'} · +${reward}¤ · +${xp} XP · +${OVERTAKE_CRATES} ящик`);
+  trackRun=regularRun();
+  if(!training && state.wins===5) notify('Босс готов. Можно продолжать заезды.');
+  saveState();
+  renderAll();
+}
+function startBoss(){
+  if(state.wins<5 || bossPhase!=='ready') return;
+  bossResult=null;
+  bossSummary=null;
+  bossPhase='running';
+  racePaused=false;
+  exhaustAge=Infinity;
+  bossEncounter=stageProfile(state.stage);
+  trackRun=createRun(bossEncounter.bossGap,bossPreparation.heat);
+  updateBossOverlay();
+  tone(180,.18,'sawtooth');
+  buzz(18);
+}
+function renderBossReport(){
+  const {run,forecast,reward,oldLevel,newLevel,newCar}=bossSummary;
+  const seconds=value=>decimal(value)+' с';
+  const heat=value=>Math.round(value)+'%';
+  const gap=value=>Math.ceil(value)+' м';
+  const resultTime=forecast.finish===null?`Тайм-аут · ${bossEncounter.boss.limit} с`:seconds(forecast.finish);
+  const rows=[
+    ['Время заезда',seconds(run.time),resultTime],
+    ['Отрыв на финише',gap(run.gap),gap(forecast.remainingGap)],
+    ['Пиковый нагрев',heat(run.peakHeat),heat(forecast.racePeakHeat)],
+    ['Нагрев на финише',heat(run.heat),heat(forecast.finalHeat)],
+    ['Пит-стопы',run.pitStops,forecast.pitStops],
+    ['Время на пит-стопах',seconds(run.pitSeconds),seconds(forecast.pitSeconds)]
+  ];
+  let difference='';
+  if(bossResult==='win' && forecast.finish!==null){
+    const delta=run.time-forecast.finish;
+    difference=Math.abs(delta)<.05?'Время совпало с прогнозом.':
+      `На ${seconds(Math.abs(delta))} ${delta<0?'быстрее':'медленнее'} прогноза.`;
+  }else if(bossResult==='win') difference='Ты успел обогнать босса, хотя прогноз показывал тайм-аут.';
+  else if(bossResult==='loss' && forecast.finish!==null) difference='Прогноз показывал обгон, но в заезде время вышло.';
+  else if(bossResult==='aborted') difference='Факт приведён до момента остановки, прогноз — для полного заезда.';
+  const levelUp=newLevel>oldLevel?` · уровень ${oldLevel} → ${newLevel}`:'';
+  garageEl('bossReport').innerHTML=`
+    <table class="bench-table"><thead><tr><th scope="col">Показатель</th><th scope="col">Факт</th><th scope="col">Прогноз</th></tr></thead>
+    <tbody>${rows.map(([label,actual,estimate])=>`<tr><th scope="row">${label}</th><td>${actual}</td><td>${estimate}</td></tr>`).join('')}</tbody></table>
+    <p class="sub">Точные переключения: ${run.perfectShifts} из ${run.shifts}. Критическое нитро: ${run.criticalNitros}, двойные рывки: ${run.doubleDashes}. ${difference}</p>
+    ${reward?`<p class="report-reward">+${fmt(reward.credits)}¤ · +${fmt(reward.xp)} XP · +${reward.crates} ящика${levelUp}${newCar?'<br>Открыт '+newCar:''}</p>`:''}
+    <p class="sub">Прогноз использует точные переключения каждые 2,4 с.</p>`;
+}
+function finishBoss(outcome){
+  if(bossPhase!=='running') return;
+  bossPhase='result';
+  racePaused=false;
+  bossResult=outcome;
+  const oldLevel=state.level,oldCar=carForLevel();
+  const reward=outcome==='win'?bossReward(state.stage):null;
+  if(reward){
+    state.credits+=reward.credits;
+    gainExperience(state,reward.xp);
+    gainCrates(reward.crates);
+    state.stage++;
+    state.wins=0;
+    state.combo=1;
+    addLog('🏆 Босс обогнан · +'+reward.credits+'¤ · +'+reward.crates+' ящика');
+    tone(880,.28,'sawtooth');
+    buzz([30,40,80]);
+  }
+  bossSummary={run:{...trackRun},forecast:bossPreparation.selected.result,reward,oldLevel,
+    newLevel:state.level,newCar:oldCar!==carForLevel()?carForLevel().name:''};
+  saveState();
+  renderAll();
+  updateBossOverlay();
+}
+function closeBoss(){
+  const resumeTraining=bossPhase==='result' && bossResult!=='win';
+  bossPhase='closed';
+  racePaused=false;
+  exhaustAge=Infinity;
+  bossResult=null;
+  bossSummary=null;
+  bossEncounter=null;
+  bossPreparation=null;
+  trackRun=regularRun();
+  updateBossOverlay();
+  renderAll();
+  garageEl(state.wins>=5 && !resumeTraining?'bossChallenge':'shiftBtn').focus();
+}
+function tickRace(dt){
+  const boss=bossPhase==='running';
+  if(!raceAdvancing()) return;
+  const profile=boss?bossEncounter:stageProfile(state.stage);
+  const step=boss?Math.min(dt,Math.max(0,profile.boss.limit-trackRun.time)):dt;
+  const wasInPit=trackRun.pit>0;
+  const spec=boss?bossPreparation.selected.spec:performanceSpec;
+  stepEncounter(trackRun,spec,step,profile,boss?bossSection(profile,trackRun.time):null);
+  state.heat=trackRun.heat;
+  if(!wasInPit && trackRun.pit>0){
+    state.combo=1;
+    addLog('🛠 Пит-стоп · перегрев');
+  }
+  if(trackRun.gap<=0) boss?finishBoss('win'):regularOvertake();
+  else if(boss && trackRun.time+1e-8>=profile.boss.limit) finishBoss('loss');
+}
+let autoTimer=null;
+let autoOpenSession={active:false,opened:0,sold:0,earned:0,message:''};
+function validAutoRarity(value){
+  return Number.isInteger(value) && value>=0 && value<CFG.rarities.length;
+}
+function renderAutoOpen(){
+  const {active,opened,sold,earned,message}=autoOpenSession;
+  garageEl('crateStock').textContent=fmt(state.crates);
+  const openButton=garageEl('openCrate');
+  openButton.textContent=state.crates>0?'Открыть из запаса':'Открыть · '+CRATE_PRICE+'¤';
+  openButton.disabled=active;
+  garageEl('upgradeCrate').disabled=active;
+  garageEl('autoMinRarity').disabled=active;
+  garageEl('autoStart').disabled=racePaused;
+  garageEl('autoStart').textContent=active?'Остановить':'Автооткрытие';
+  garageEl('autoStatus').textContent=active || opened || message
+    ? [message||`Открыто ${opened}/${AUTO_OPEN_LIMIT}`,sold?`Продано: ${sold} (+${fmt(earned)}¤)`:''].filter(Boolean).join(' · ')
+    : `До ${AUTO_OPEN_LIMIT} ящиков за запуск`;
+}
+function stopAutoOpen(message){
+  if(!autoOpenSession.active) return;
+  clearTimeout(autoTimer);
+  autoTimer=null;
+  autoOpenSession.active=false;
+  autoOpenSession.message=message;
+  renderAutoOpen();
+}
+const canOpenContainer=()=>state.crates>0 || state.credits>=CRATE_PRICE;
+function startAutoOpen(){
+  if(racePaused || autoOpenSession.active || lootId!==null || bossPhase!=='closed' || screen!=='race' || document.hidden) return;
+  if(!canOpenContainer()){
+    autoOpenSession.message='Не хватает кредитов на ящик';
+    renderAutoOpen();
+    return;
+  }
+  autoOpenSession={active:true,opened:0,sold:0,earned:0,message:''};
+  renderAutoOpen();
+  autoTimer=setTimeout(autoOpenTick,AUTO_OPEN_INTERVAL);
+}
+function autoOpenTick(){
+  autoTimer=null;
+  if(!autoOpenSession.active) return;
+  if(racePaused || screen!=='race' || document.hidden || bossPhase!=='closed' || lootId!==null){
+    stopAutoOpen('Автооткрытие остановлено');
+    return;
+  }
+  openContainer(true);
+  if(!autoOpenSession.active) return;
+  if(!canOpenContainer()) stopAutoOpen('Не хватает кредитов на ящик');
+  else if(autoOpenSession.opened>=AUTO_OPEN_LIMIT) stopAutoOpen(`Открыто ${AUTO_OPEN_LIMIT}/${AUTO_OPEN_LIMIT}`);
+  else autoTimer=setTimeout(autoOpenTick,AUTO_OPEN_INTERVAL);
+}
+function openContainer(automatic=false){
+  if(lootId!==null || bossPhase!=='closed' || (!automatic && autoOpenSession.active)) return;
+  if(!canOpenContainer()){
+    if(automatic) stopAutoOpen('Не хватает кредитов на ящик');
+    else notify('Нужно '+CRATE_PRICE+'¤');
+    return;
+  }
+  const rarity=rarityFor(state.containerLevel);
+  const part=CFG.parts[Math.floor(Math.random()*CFG.parts.length)];
+  const power=Math.round((PART_FLOORS[rarity]+Math.random()*5)*CFG.rarities[rarity][2]);
+  const item={rarity,power,level:1,part};
+  const best=automatic?bestParts().get(part):null;
+  if(state.crates>0) state.crates--;
+  else state.credits-=CRATE_PRICE;
+  gainExperience(state,CRATE_XP);
+  if(automatic){
+    autoOpenSession.opened++;
+    if(rarity<state.autoMinRarity){
+      const sale=collectSale(item);
+      autoOpenSession.sold++;
+      autoOpenSession.earned+=sale.credits;
+      saveState();
+      renderAll();
+      return;
+    }
+    stopAutoOpen('Найдено улучшение');
+  }
+  item.id=state.nextPartId++;
+  state.parts.push(item);
+  addLog('📦 '+CFG.rarities[rarity][0]+' '+part);
+  saveState();
+  renderAll();
+  lootId=item.id;
+  garageEl('lootType').textContent=part+' · '+CFG.rarities[rarity][0];
+  garageEl('lootComparison').innerHTML=partComparison(item,'Новая деталь')+
+    `<p class="sub">Продажа: ${fmt(priceToSell(item))}¤ и ${saleXp(item)} XP</p>`;
+  const note=garageEl('lootAutoNote');
+  note.hidden=!automatic;
+  note.textContent=automatic
+    ? best?`Автооткрытие остановлено. Лучшая прежняя деталь: +${best.power}%.`
+      :'Автооткрытие остановлено. Первая деталь для этого слота.'
+    :'';
+  syncMotor();
+  revealLoot(item);
+}
+function revealLoot(item){
+  const animate=typeof matchMedia==='function' && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const countdown=garageEl('lootReveal'), details=garageEl('lootDetails');
+  countdown.hidden=!animate;
+  details.hidden=animate;
+  garageEl('lootDialog').showModal();
+  const finish=()=>{
+    if(lootId!==item.id) return;
+    details.hidden=false;
+    countdown.hidden=true;
+    tone(300+item.rarity*70,.18,'triangle',420+item.rarity*80);
+    buzz(18);
+    if(animate) garageEl('lootKeep').focus();
+  };
+  if(animate){
+    tone(120,.19,'triangle',230);
+    setTimeout(finish,LOOT_REVEAL_MS);
+  }else finish();
+}
+function upgradeContainer(){
+  if(autoOpenSession.active) return;
+  const cost=crateUpgradePrice(state.containerLevel);
+  if(state.credits<cost){notify('Нужно '+fmt(cost)+'¤');return}
+  state.credits-=cost;
+  state.containerLevel++;
+  notify('Контейнер улучшен до ур. '+state.containerLevel);
+  tone(520,.14);
+  saveState();
+  renderAll();
+}
+function equipBest(){
+  const best=bestParts();
+  if(!best.size){notify('В инвентаре пока нет деталей');return}
+  let changed=0;
+  for(const [part,item] of best){
+    if(isEquipped(item)) continue;
+    state.equipped[part]=item.id;
+    changed++;
+  }
+  if(changed) updateInventory('Автосборка · обновлено слотов: '+changed);
+  else notify('Лучшие детали уже установлены');
+}
+function normalizePresets(raw,usesInstanceIds){
+  return Array.from({length:PRESET_COUNT},(_,index)=>{
+    const preset=Array.isArray(raw) && usesInstanceIds?raw[index]:null;
+    if(typeof preset?.name!=='string' || !preset.name.trim() ||
+      !preset.slots || typeof preset.slots!=='object' || Array.isArray(preset.slots)) return null;
+    const slots=Object.fromEntries(CFG.parts.flatMap(part=>{
+      const id=preset.slots[part];
+      return Number.isSafeInteger(id) && id>0?[[part,id]]:[];
+    }));
+    return {name:preset.name.trim().slice(0,PRESET_NAME_LENGTH),slots};
+  });
+}
+function storePreset(index,name){
+  state.presets[index]={name:name.trim().slice(0,PRESET_NAME_LENGTH),slots:{...state.equipped}};
+}
+function resolvePreset(preset){
+  const slots={};
+  let missing=0;
+  for(const [part,id] of Object.entries(preset.slots)){
+    if(state.parts.some(item=>item.id===id && item.part===part)) slots[part]=id;
+    else missing++;
+  }
+  return {slots,missing};
+}
+function renderPresets(){
+  const list=garageEl('presetList');
+  state.presets.forEach((preset,index)=>{
+    const row=list.children[index];
+    const name=preset?.name??('Пресет '+(index+1));
+    const apply=row.querySelector('[data-apply]');
+    const edit=row.querySelector('[data-edit]');
+    const status=row.querySelector('.sub');
+    row.querySelector('strong').textContent=name;
+    apply.hidden=!preset;
+    apply.setAttribute('aria-label','Применить '+name);
+    edit.textContent=preset?'Перезаписать':'Сохранить';
+    edit.setAttribute('aria-label',edit.textContent+' '+name);
+    if(!preset){
+      row.dataset.matches='false';
+      status.textContent='Свободный слот';
+      return;
+    }
+    const {slots,missing}=resolvePreset(preset);
+    const matches=!missing && sameSlots(slots,state.equipped);
+    row.dataset.matches=String(matches);
+    apply.disabled=matches;
+    const details=[Object.keys(slots).length+' из 8 деталей'];
+    if(missing) details.push('Отсутствует: '+missing);
+    if(matches) details.push('Установлен');
+    status.textContent=details.join(' · ');
+  });
+}
+function initPresets(){
+  const list=garageEl('presetList');
+  const editor=garageEl('presetEditor');
+  const nameInput=garageEl('presetName');
+  let editing=null;
+  list.innerHTML=Array.from({length:PRESET_COUNT},(_,index)=>`
+    <div class="preset-row">
+      <div><strong></strong><div class="sub"></div></div>
+      <div class="preset-actions">
+        <button type="button" class="btn primary" data-apply="${index}">Применить</button>
+        <button type="button" class="btn" data-edit="${index}">Сохранить</button>
+      </div>
+    </div>`).join('');
+  const closeEditor=()=>{
+    editor.hidden=true;
+    editing=null;
+  };
+  list.addEventListener('click',event=>{
+    const apply=event.target.closest('[data-apply]');
+    const edit=event.target.closest('[data-edit]');
+    if(apply){
+      const index=Number(apply.dataset.apply);
+      const preset=state.presets[index];
+      if(!preset) return;
+      closeEditor();
+      const {slots,missing}=resolvePreset(preset);
+      state.equipped=slots;
+      updateInventory(missing?`Применён «${preset.name}». Отсутствует: ${missing}`:`Установлен «${preset.name}»`);
+      if(apply.disabled) list.querySelector(`[data-edit="${index}"]`).focus({preventScroll:true});
+    }else if(edit){
+      editing=Number(edit.dataset.edit);
+      const existing=state.presets[editing];
+      nameInput.value=existing?.name??('Пресет '+(editing+1));
+      const count=Object.keys(state.equipped).length;
+      garageEl('presetSaveHint').textContent=existing
+        ? `Текущая сборка (${count} из 8 деталей) заменит сохранённый комплект.`
+        : `Будет сохранена текущая сборка: ${count} из 8 деталей.`;
+      garageEl('presetSubmit').textContent=existing?'Перезаписать':'Сохранить';
+      editor.hidden=false;
+      nameInput.focus({preventScroll:true});
+      nameInput.select();
+    }
+  });
+  garageEl('presetCancel').addEventListener('click',()=>{
+    list.querySelector(`[data-edit="${editing}"]`)?.focus({preventScroll:true});
+    closeEditor();
+  });
+  editor.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(editing===null) return;
+    if(!nameInput.value.trim()){
+      notify('Введи название комплекта');
+      nameInput.focus();
+      return;
+    }
+    const index=editing;
+    storePreset(index,nameInput.value);
+    closeEditor();
+    updateInventory(`Сохранён «${state.presets[index].name}»`);
+    list.querySelector(`[data-edit="${index}"]`).focus({preventScroll:true});
+  });
+}
+function initInventory(){
+  const fillOptions=(id,options)=>{
+    const select=garageEl(id);
+    for(const [value,label] of options) select.add(new Option(label,value));
+  };
+  fillOptions('partType',CFG.parts.map(part=>[part,part]));
+  fillOptions('partRarity',CFG.rarities.map(([label],id)=>[id,label]).reverse());
+  for(const id of ['partType','partRarity','partStatus','partOrder']){
+    garageEl(id).addEventListener('change',()=>{
+      if(!visibleParts().some(item=>item.id===selectedPart)) selectedPart=null;
+      renderParts();
+    });
+  }
+  garageEl('partsGrid').addEventListener('click',event=>{
+    const slot=event.target.closest('[data-slot]');
+    if(!slot) return;
+    const next=garageEl('partType').value===slot.dataset.slot?'':slot.dataset.slot;
+    resetInventoryFilters();
+    garageEl('partType').value=next;
+    selectedPart=null;
+    renderParts();
+  });
+  garageEl('inventoryList').addEventListener('click',event=>{
+    const button=event.target.closest('[data-item]');
+    if(button) selectInventoryPart(Number(button.dataset.item));
+  });
+  garageEl('partInspector').addEventListener('click',event=>{
+    switch(event.target.id){
+      case 'upgradePart': upgradeSelected(); break;
+      case 'equipPart': equipSelected(); break;
+      case 'sellPart': sellSelected(); break;
+      case 'pickBest': {
+        const item=bestParts().get(getSelectedPart()?.part);
+        if(item){
+          resetInventoryFilters();
+          garageEl('partType').value=item.part;
+          selectInventoryPart(item.id);
+        }
+        break;
+      }
+    }
+  });
+}
+const canvas=document.getElementById('raceCanvas'),ctx=canvas.getContext('2d');let t=0;
+function resizeCanvas(){const d=Math.min(2,devicePixelRatio||1),r=canvas.getBoundingClientRect();canvas.width=r.width*d;canvas.height=r.height*d;ctx.setTransform(d,0,0,d,0,0)}
+function loadCar(src){if(carImages[src])return carImages[src];const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),x=c.getContext('2d');c.width=im.naturalWidth;c.height=im.naturalHeight;x.drawImage(im,0,0);let d;try{d=x.getImageData(0,0,c.width,c.height)}catch{return}const q=[],seen=new Uint8Array(c.width*c.height);for(let xx=0;xx<c.width;xx++){q.push([xx,0],[xx,c.height-1])}for(let yy=0;yy<c.height;yy++){q.push([0,yy],[c.width-1,yy])}while(q.length){const [px,py]=q.pop(),idx=py*c.width+px;if(px<0||py<0||px>=c.width||py>=c.height||seen[idx])continue;seen[idx]=1;const k=idx*4;if(d.data[k]>238&&d.data[k+1]>238&&d.data[k+2]>238){d.data[k+3]=0;q.push([px+1,py],[px-1,py],[px,py+1],[px,py-1])}}x.putImageData(d,0,0);const b=document.createElement('canvas');const bx=b.getContext('2d'),bd=d;let minX=c.width,minY=c.height,maxX=0,maxY=0;for(let yy=0;yy<c.height;yy++)for(let xx=0;xx<c.width;xx++)if(bd.data[(yy*c.width+xx)*4+3]>10){minX=Math.min(minX,xx);minY=Math.min(minY,yy);maxX=Math.max(maxX,xx);maxY=Math.max(maxY,yy)}if(maxX>minX){b.width=maxX-minX+1;b.height=maxY-minY+1;bx.drawImage(c,minX,minY,b.width,b.height,0,0,b.width,b.height);carImages[src]=b}};carImages[src]=im;im.src=src;return im}
+function drawRace(){const w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#112127');g.addColorStop(1,'#091015');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle='#17262b';ctx.fillRect(0,h*.24,w,h*.58);ctx.strokeStyle='#31464a';ctx.lineWidth=2;ctx.setLineDash([14,14]);ctx.lineDashOffset=-t%28;ctx.beginPath();ctx.moveTo(0,h*.53);ctx.lineTo(w,h*.53);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#8aaa70';for(let x=-20;x<w;x+=28){ctx.fillRect(x-(t%28),h*.19,12,3);ctx.fillRect(x-(t%28),h*.84,12,3)}const im=loadCar(carForLevel().side);
+const rivalX=Math.max(w*.48,w*(.22+Math.min(1,trackRun.gap/90)*.42));
+const iw=im.naturalWidth||im.width, ih=im.naturalHeight||im.height;
+if(iw && ih && (im instanceof HTMLCanvasElement || im.complete && im.naturalWidth)){
+  const scale=Math.min(w*.30/iw,55/ih), carWidth=iw*scale, carHeight=ih*scale;
+  drawExhaust(w*.18,h*.79-carHeight*.25);
+  ctx.drawImage(im,w*.18,h*.79-carHeight,carWidth,carHeight);
+  ctx.save();
+  ctx.globalAlpha=.8;
+  ctx.filter='hue-rotate(95deg)';
+  ctx.drawImage(im,rivalX,h*.32-carHeight,carWidth,carHeight);
+  ctx.restore();
+}
+ctx.fillStyle='#c8ff4d';ctx.font='700 11px system-ui';ctx.fillText('YOU',w*.18,h*.59);ctx.fillStyle='#ffb84d';ctx.fillText('RIVAL',rivalX,h*.12);}
+function drawExhaust(x,y){
+  if(exhaustAge>.42) return;
+  const motion=!reducedMotion.matches;
+  const opacity=1-exhaustAge/.42;
+  ctx.save();
+  const count=motion?6:1;
+  for(let i=0;i<count;i++){
+    const distance=motion?(4+i*3+exhaustAge*(32+i*8)):5;
+    const lift=motion?(i%2===0?1:-1)*(i+1)*2.5*exhaustAge:0;
+    const flame=exhaustAge<.16 && i<3;
+    ctx.globalAlpha=opacity*(flame?.88:.28);
+    ctx.fillStyle=flame?(i===0?'#fff0a6':'#ff813d'):'#b7bfba';
+    ctx.beginPath();
+    ctx.arc(x-distance*exhaustStrength,y+lift,(flame?3.5:2+exhaustAge*6)*exhaustStrength,0,Math.PI*2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+function toggleRacePause(){
+  if(screen!=='race' || lootId!==null || (bossPhase!=='closed' && bossPhase!=='running')) return;
+  racePaused=!racePaused;
+  previousFrame=null;
+  accumulator=0;
+  if(racePaused) stopAutoOpen('Автооткрытие остановлено на паузе');
+  renderRaceControls();
+  renderAutoOpen();
+  renderTelemetry();
+  syncMotor();
+}
+document.querySelectorAll('.nav button').forEach(button=>
+  button.addEventListener('click',()=>setScreen(button.dataset.screen)));
+garageEl('shiftBtn').addEventListener('click',shiftGear);
+garageEl('bossShift').addEventListener('click',shiftGear);
+function toggleSound(){
+  if(!state.soundEnabled && !ensureAudio()){notify('Звук недоступен в этом браузере');return}
+  state.soundEnabled=!state.soundEnabled;
+  saveState();
+  renderRaceControls();
+  syncMotor();
+}
+garageEl('soundToggle').addEventListener('click',toggleSound);
+garageEl('bossSoundToggle').addEventListener('click',toggleSound);
+for(const type of ['click','keydown']){
+  document.addEventListener(type,event=>{
+    if(event.isTrusted && state.soundEnabled && audioCtx?.state!=='running') ensureAudio();
+  },true);
+}
+garageEl('openCrate').addEventListener('click',()=>openContainer());
+garageEl('autoStart').addEventListener('click',()=>{
+  if(autoOpenSession.active) stopAutoOpen('Автооткрытие остановлено');
+  else startAutoOpen();
+});
+const lootDialog=garageEl('lootDialog');
+lootDialog.addEventListener('close',()=>{
+  lootId=null;
+  syncMotor();
+  garageEl('openCrate').focus({preventScroll:true});
+});
+garageEl('lootKeep').addEventListener('click',()=>lootDialog.close());
+garageEl('lootEquip').addEventListener('click',()=>{
+  if(lootId===null) return;
+  selectedPart=lootId;
+  equipSelected();
+  lootDialog.close();
+});
+garageEl('lootSell').addEventListener('click',()=>{
+  if(lootId===null) return;
+  selectedPart=lootId;
+  sellSelected();
+  lootDialog.close();
+});
+garageEl('upgradeCrate').addEventListener('click',upgradeContainer);
+garageEl('equipBest').addEventListener('click',equipBest);
+garageEl('testDrive').addEventListener('click',()=>{
+  const comparison=garageEl('buildBenchmark');
+  comparison.hidden=!comparison.hidden;
+  garageEl('testDrive').setAttribute('aria-expanded',String(!comparison.hidden));
+  if(!comparison.hidden){
+    renderBenchmark();
+    comparison.focus({preventScroll:true});
+  }
+});
+garageEl('buildBenchmark').addEventListener('change',event=>{
+  if(event.target.id!=='benchStage') return;
+  benchmarkStage=Number(event.target.value);
+  renderBenchmark();
+  garageEl('benchStage').focus({preventScroll:true});
+});
+garageEl('bossChallenge').addEventListener('click',prepareBoss);
+garageEl('bossBuildList').addEventListener('click',event=>{
+  const button=event.target.closest('[data-boss-build]');
+  if(!button || bossPhase!=='ready') return;
+  const option=bossPreparation.options.find(item=>item.id===Number(button.dataset.bossBuild));
+  if(!option || option===bossPreparation.selected) return;
+  state.equipped={...option.slots};
+  bossPreparation.selected=option;
+  saveState();
+  renderAll();
+  renderBossBuilds();
+  garageEl('bossBuildList').querySelector(`[data-boss-build="${option.id}"]`).focus({preventScroll:true});
+});
+garageEl('bossStart').addEventListener('click',()=>{
+  if(bossPhase==='ready') startBoss();
+  else if(bossPhase==='result'){
+    if(bossResult==='win') closeBoss();
+    else prepareBoss();
+  }
+});
+const leaveBoss=()=>bossPhase==='running'?finishBoss('aborted'):closeBoss();
+garageEl('bossCancel').addEventListener('click',leaveBoss);
+garageEl('autoMinRarity').addEventListener('change',event=>{
+  const min=Number(event.target.value);
+  if(autoOpenSession.active || !validAutoRarity(min)) return;
+  state.autoMinRarity=min;
+  saveState();
+});
+document.addEventListener('keydown',event=>{
+  if(event.code==='Escape' && bossPhase!=='closed'){leaveBoss();return}
+  if(lootId!==null) return;
+  if(event.code!=='Space' || screen!=='race' || event.repeat || event.target.closest('button,input,select')) return;
+  event.preventDefault();
+  shiftGear();
+});
+window.addEventListener('resize',resizeCanvas);
+window.addEventListener('pagehide',saveState);
+document.addEventListener('visibilitychange',()=>{
+  previousFrame=null;
+  accumulator=0;
+  if(document.hidden){
+    stopAutoOpen('Автооткрытие остановлено');
+    syncMotor();
+    saveState();
+  }else{
+    if(!racePaused) applyOfflineProgress(state);
+    renderAll();
+    saveState();
+  }
+});
+let previousFrame=null, accumulator=0, lastTelemetry=0;
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+function animateRace(now){
+  const dt=previousFrame===null?0:Math.min(.25,(now-previousFrame)/1000);
+  previousFrame=now;
+  if(raceAdvancing()){
+    accumulator+=dt;
+    while(accumulator>=RACE.step){
+      tickRace(RACE.step);
+      accumulator-=RACE.step;
+    }
+    exhaustAge+=dt;
+    if(!reducedMotion.matches) t=(t+trackRun.speed*dt*.32)%28;
+  }else accumulator=0;
+  if(!document.hidden && screen==='race'){
+    drawRace();
+    if(now-lastTelemetry>=75){
+      renderTelemetry();
+      syncMotor();
+      lastTelemetry=now;
+    }
+  }
+  requestAnimationFrame(animateRace);
+}
+resizeCanvas();
+initInventory();
+initPresets();
+const autoRaritySelect=garageEl('autoMinRarity');
+CFG.rarities.forEach(([label],index)=>autoRaritySelect.add(new Option(index===0?'Любая':label+' и выше',index)));
+autoRaritySelect.value=state.autoMinRarity;
+renderAll();
+saveState();
+requestAnimationFrame(animateRace);
+if('serviceWorker' in navigator && location.protocol!=='file:'){
+  navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(()=>{});
+}
+</script>
+</body>
+</html>
