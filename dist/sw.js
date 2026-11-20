@@ -1,4 +1,4 @@
-const CACHE = 'ring-rush-v3';
+const CACHE = 'ring-rush-v4';
 const CORE = [
   './',
   './index.html',
