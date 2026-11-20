@@ -12,7 +12,7 @@
 <title>Ring Rush</title>
 <style>
 :root{--bg:#091015;--panel:#111a21;--panel2:#17242c;--line:#24343d;--text:#eff6f2;--muted:#8ea3a5;--lime:#c8ff4d;--cyan:#69e2e8;--amber:#ffb84d;--red:#ff6b5e;--shadow:0 18px 45px #0008}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;overscroll-behavior:none;touch-action:manipulation;background:radial-gradient(circle at 20% 0,#1b3137 0,#091015 42%,#060a0d 100%);color:var(--text);font:500 14px/1.35 Inter,system-ui,-apple-system,sans-serif;height:100%;min-height:100svh;overflow:hidden;user-select:none}body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}button{font:inherit;color:inherit;border:0;cursor:pointer}#app{height:100dvh;min-height:100svh;width:100%;max-width:none;margin:0;display:flex;flex-direction:column;position:relative}.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 8px}.brand{font-weight:900;letter-spacing:.12em;font-size:18px}.brand span{color:var(--lime)}.resources{display:flex;gap:7px}.pill{background:#0d171d;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px}.pill b{color:var(--lime)}main{flex:1;min-height:0;overflow:hidden;padding:0 14px 92px}.screen{display:none;height:100%;overflow:hidden;padding-bottom:10px;overscroll-behavior:none}.screen#garage,.screen#evolution{overflow-y:auto;-webkit-overflow-scrolling:touch}.screen.active{display:block}.hero{background:linear-gradient(145deg,#1b2a31,#111a20);border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}.eyebrow{color:var(--lime);font-size:11px;letter-spacing:.15em;text-transform:uppercase}.title{font-size:28px;font-weight:900;line-height:1.03;margin:4px 0}.sub{color:var(--muted);font-size:12px}.race-meta{display:flex;justify-content:space-between;margin-top:12px}.progress{height:7px;background:#0a1115;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--lime),#75e9a2);border-radius:9px}.canvas-wrap{margin-top:12px;border:1px solid #31434b;border-radius:18px;overflow:hidden;background:#0a1115;position:relative}.canvas-wrap canvas{display:block;width:100%;height:156px}.race-chip{position:absolute;top:10px;padding:5px 8px;border-radius:9px;background:#071015d9;font-size:11px}.race-chip.left{left:10px}.race-chip.right{right:10px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.heat-stat{grid-column:1/-1}.part-thumb{border:2px solid color-mix(in srgb,var(--rarity-color,#597078),transparent 35%);box-shadow:0 4px 12px #0003}.part-thumb.rarity-4,.part-thumb.rarity-5,.part-thumb.rarity-6{box-shadow:0 0 0 2px var(--rarity-color),0 6px 16px #0005}.stat{background:#101b22;border:1px solid var(--line);border-radius:14px;padding:10px}.stat small{display:block;color:var(--muted);font-size:10px}.stat strong{font-size:18px}.shift{width:100%;margin-top:12px;background:linear-gradient(135deg,#d8ff5f,#88dd64);color:#10200f;border-radius:18px;padding:17px 14px;box-shadow:0 8px 22px #9cf04d33;position:relative;overflow:hidden}.shift:active{transform:scale(.985)}.shift b{display:block;font-size:24px;letter-spacing:.08em}.shift small{font-size:11px;opacity:.75}.shift .meter{position:absolute;inset:auto 0 0;height:5px;background:#10200f33}.shift .meter i{display:block;height:100%;width:50%;background:#10200f}.log{margin-top:10px;display:flex;gap:7px;overflow:hidden}.toast{background:#16242a;border:1px solid #28424a;border-radius:12px;padding:8px 10px;white-space:nowrap;font-size:11px}.section-head{display:flex;justify-content:space-between;align-items:end;margin:12px 2px 8px}.section-head h2{font-size:18px;margin:0}.section-head span{color:var(--muted);font-size:11px}.panel{background:linear-gradient(145deg,#121d24,#0d151b);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px}.garage-car{display:flex;align-items:center;gap:14px}.garage-car img{width:45%;max-height:120px;object-fit:contain;filter:drop-shadow(0 12px 13px #0008)}.car-name{font-size:21px;font-weight:900}.tag{display:inline-flex;padding:4px 7px;border-radius:7px;background:#23343a;color:var(--lime);font-size:10px;font-weight:800;letter-spacing:.08em}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.part{background:#121f26;border:1px solid var(--line);border-radius:14px;padding:10px;position:relative}.part-thumb{width:100%;height:90px;object-fit:contain;padding:4px;border-radius:10px;background:#f7f8f8;display:block;margin-bottom:7px}.part.inventory-item{display:grid;gap:3px;align-content:start}.part.inventory-item .part-thumb{height:72px;object-fit:contain;padding:3px;margin:-1px -1px 4px;width:calc(100% + 2px)}.part .icon{font-size:20px}.part small{display:block;color:var(--muted);font-size:10px}.part b{display:block;margin-top:3px}.rarity{color:var(--lime);font-size:10px}.actions{display:flex;gap:8px;margin-top:10px}.btn{background:#1b2b32;border:1px solid #31464f;border-radius:12px;padding:11px 12px;font-weight:800;flex:1}.btn.primary{background:var(--lime);color:#10200f;border-color:var(--lime)}.btn.warn{background:#3b2c1b;border-color:#805b2d;color:#ffc968}.btn:active{transform:translateY(1px)}.roulette{display:flex;align-items:center;gap:12px}.crate{width:74px;height:74px;border-radius:20px;background:linear-gradient(145deg,#cbff52,#579b52);display:grid;place-items:center;color:#10200f;font-size:34px;box-shadow:0 8px 20px #8ce35733}.roulette h3{margin:0 0 4px}.roulette p{margin:0;color:var(--muted);font-size:11px}.toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.toggle input{accent-color:var(--lime)}.evo{position:relative;padding-left:16px}.evo:before{content:"";position:absolute;left:24px;top:22px;bottom:22px;width:2px;background:#31434b}.node{display:flex;gap:12px;align-items:center;position:relative;margin:12px 0}.node-dot{width:18px;height:18px;border-radius:50%;background:#203139;border:3px solid #52656c;z-index:1}.node.unlocked .node-dot{background:var(--lime);border-color:#dfff91;box-shadow:0 0 0 5px #c8ff4d1c}.node-card{flex:1;background:#121f26;border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;align-items:center;gap:10px}.node-card img{width:90px;height:54px;object-fit:contain}.node-card h3{margin:0;font-size:15px}.node-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.locked{opacity:.5}.bottom{position:fixed;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#09101500,#091015 18%)}.nav{display:grid;grid-template-columns:repeat(3,1fr);background:#101b21ef;border:1px solid #2b3d44;border-radius:18px;padding:5px;box-shadow:var(--shadow)}.nav button{background:transparent;color:var(--muted);padding:9px 6px;border-radius:13px;font-size:11px}.nav button.active{background:#22343b;color:var(--lime)}.toast-pop{position:absolute;left:50%;top:72px;transform:translateX(-50%) translateY(-8px);background:#d8ff5f;color:#0d1b0f;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:5}.toast-pop.show{opacity:1;transform:translateX(-50%) translateY(0)}.boss-overlay{position:absolute;inset:0;background:radial-gradient(circle at 50% 18%,#452b1acc,#090f13f5 48%);display:none;align-items:flex-end;z-index:10;padding:16px}.boss-overlay.show{display:flex}.boss-card{width:100%;background:linear-gradient(160deg,#2a1e1a,#121a1e 58%);border:1px solid #8c5d3e;border-radius:26px;padding:18px;box-shadow:0 22px 60px #000b;animation:bossIn .28s ease-out}.boss-kicker{color:var(--amber);font-size:11px;letter-spacing:.18em;font-weight:900}.boss-title{font-size:32px;line-height:1;font-weight:950;margin:5px 0 8px}.boss-sub{color:#d7c1b3;font-size:12px}.boss-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.boss-stat{background:#161c20;border:1px solid #4b3730;border-radius:14px;padding:10px}.boss-stat small{display:block;color:#a89183;font-size:10px}.boss-stat b{font-size:20px;color:var(--amber)}.boss-reward{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.reward-chip{background:#241f1c;border:1px solid #594437;border-radius:999px;padding:7px 10px;font-size:11px;color:#ffe1a7}.boss-actions{display:flex;gap:8px}.boss-actions .btn{padding:14px 12px}.boss-actions .btn.primary{background:linear-gradient(135deg,#ffcf68,#ff974d);border-color:#ffcf68}.boss-card .progress{background:#171313;border:1px solid #553a2f;height:10px}.boss-card .progress i{background:linear-gradient(90deg,#ffcb61,#ff704f);transition:width .2s}@keyframes bossIn{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}.hero.boss-ready{border-color:#a1663c;box-shadow:0 0 0 1px #a1663c,0 0 38px #ff8a3d26,var(--shadow)}.part{cursor:pointer;transition:.18s}.part.selected{border-color:var(--lime);box-shadow:0 0 0 1px #c8ff4d55,0 8px 20px #0004}.part button{width:100%;margin-top:8px;padding:7px 6px;border-radius:9px;background:#1b3037;border:1px solid #34515b;color:var(--text);font-size:10px;font-weight:800}.part button:active{transform:translateY(1px)}.inspector{background:linear-gradient(145deg,#172a31,#10181d);border-color:#3a5c64}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.compare-box{background:#0e171c;border:1px solid var(--line);border-radius:12px;padding:9px}.compare-box small{display:block;color:var(--muted);font-size:10px}.compare-box b{display:block;font-size:18px;margin-top:2px}.compare-box.new{border-color:#87b94a}.delta{color:var(--lime);font-size:11px}.inspector-empty{color:var(--muted);font-size:12px;padding:4px 0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;overscroll-behavior:none;touch-action:manipulation;background:radial-gradient(circle at 20% 0,#1b3137 0,#091015 42%,#060a0d 100%);color:var(--text);font:500 14px/1.35 Inter,system-ui,-apple-system,sans-serif;height:100%;min-height:100svh;overflow:hidden;user-select:none}body{padding:0}button{font:inherit;color:inherit;border:0;cursor:pointer}#app{height:100dvh;min-height:100svh;width:100%;max-width:none;margin:0;display:flex;flex-direction:column;position:relative}.topbar{display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 16px 8px}.brand{font-weight:900;letter-spacing:.12em;font-size:18px}.brand span{color:var(--lime)}.resources{display:flex;gap:7px}.pill{background:#0d171d;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px}.pill b{color:var(--lime)}main{flex:1;min-height:0;overflow:hidden;padding:0 14px 92px}.screen{display:none;height:100%;overflow:hidden;padding-bottom:10px;overscroll-behavior:none}.screen#garage,.screen#evolution{overflow-y:auto;-webkit-overflow-scrolling:touch}.screen.active{display:block}.hero{background:linear-gradient(145deg,#1b2a31,#111a20);border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}.eyebrow{color:var(--lime);font-size:11px;letter-spacing:.15em;text-transform:uppercase}.title{font-size:28px;font-weight:900;line-height:1.03;margin:4px 0}.sub{color:var(--muted);font-size:12px}.race-meta{display:flex;justify-content:space-between;margin-top:12px}.progress{height:7px;background:#0a1115;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--lime),#75e9a2);border-radius:9px}.canvas-wrap{margin-top:12px;border:1px solid #31434b;border-radius:18px;overflow:hidden;background:#0a1115;position:relative}.canvas-wrap canvas{display:block;width:100%;height:156px}.race-chip{position:absolute;top:10px;padding:5px 8px;border-radius:9px;background:#071015d9;font-size:11px}.race-chip.left{left:10px}.race-chip.right{right:10px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.heat-stat{grid-column:1/-1}.part-thumb{border:2px solid color-mix(in srgb,var(--rarity-color,#597078),transparent 35%);box-shadow:0 4px 12px #0003}.part-thumb.rarity-4,.part-thumb.rarity-5,.part-thumb.rarity-6{box-shadow:0 0 0 2px var(--rarity-color),0 6px 16px #0005}.stat{background:#101b22;border:1px solid var(--line);border-radius:14px;padding:10px}.stat small{display:block;color:var(--muted);font-size:10px}.stat strong{font-size:18px}.shift{width:100%;margin-top:12px;background:linear-gradient(135deg,#d8ff5f,#88dd64);color:#10200f;border-radius:18px;padding:17px 14px;box-shadow:0 8px 22px #9cf04d33;position:relative;overflow:hidden}.shift:active{transform:scale(.985)}.shift b{display:block;font-size:24px;letter-spacing:.08em}.shift small{font-size:11px;opacity:.75}.shift .meter{position:absolute;inset:auto 0 0;height:5px;background:#10200f33}.shift .meter i{display:block;height:100%;width:50%;background:#10200f}.log{margin-top:10px;display:flex;gap:7px;overflow:hidden}.toast{background:#16242a;border:1px solid #28424a;border-radius:12px;padding:8px 10px;white-space:nowrap;font-size:11px}.section-head{display:flex;justify-content:space-between;align-items:end;margin:12px 2px 8px}.section-head h2{font-size:18px;margin:0}.section-head span{color:var(--muted);font-size:11px}.panel{background:linear-gradient(145deg,#121d24,#0d151b);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px}.garage-car{display:flex;align-items:center;gap:14px}.garage-car img{width:45%;max-height:120px;object-fit:contain;filter:drop-shadow(0 12px 13px #0008)}.car-name{font-size:21px;font-weight:900}.tag{display:inline-flex;padding:4px 7px;border-radius:7px;background:#23343a;color:var(--lime);font-size:10px;font-weight:800;letter-spacing:.08em}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.part{background:#121f26;border:1px solid var(--line);border-radius:14px;padding:10px;position:relative}.part-thumb{width:100%;height:90px;object-fit:contain;padding:4px;border-radius:10px;background:#f7f8f8;display:block;margin-bottom:7px}.part.inventory-item{display:grid;gap:3px;align-content:start;min-width:0}.part.inventory-item .part-thumb{height:72px;object-fit:contain;padding:3px;margin:-1px -1px 4px;width:calc(100% + 2px)}.part .icon{font-size:20px}.part small{display:block;color:var(--muted);font-size:10px}.part b{display:block;margin-top:3px}.rarity{color:var(--lime);font-size:10px}.actions{display:flex;gap:8px;margin-top:10px}.btn{background:#1b2b32;border:1px solid #31464f;border-radius:12px;padding:11px 12px;font-weight:800;flex:1}.btn.primary{background:var(--lime);color:#10200f;border-color:var(--lime)}.btn.warn{background:#3b2c1b;border-color:#805b2d;color:#ffc968}.btn:active{transform:translateY(1px)}.roulette{display:flex;align-items:center;gap:12px}.crate{width:74px;height:74px;border-radius:20px;background:linear-gradient(145deg,#cbff52,#579b52);display:grid;place-items:center;color:#10200f;font-size:34px;box-shadow:0 8px 20px #8ce35733}.roulette h3{margin:0 0 4px}.roulette p{margin:0;color:var(--muted);font-size:11px}.toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.toggle input{accent-color:var(--lime)}.evo{position:relative;padding-left:16px}.evo:before{content:"";position:absolute;left:24px;top:22px;bottom:22px;width:2px;background:#31434b}.node{display:flex;gap:12px;align-items:center;position:relative;margin:12px 0}.node-dot{width:18px;height:18px;border-radius:50%;background:#203139;border:3px solid #52656c;z-index:1}.node.unlocked .node-dot{background:var(--lime);border-color:#dfff91;box-shadow:0 0 0 5px #c8ff4d1c}.node-card{flex:1;background:#121f26;border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;align-items:center;gap:10px}.node-card img{width:90px;height:54px;object-fit:contain}.node-card h3{margin:0;font-size:15px}.node-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.locked{opacity:.5}.bottom{position:fixed;z-index:15;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#09101500,#091015 18%)}.nav{display:grid;grid-template-columns:repeat(3,1fr);background:#101b21ef;border:1px solid #2b3d44;border-radius:18px;padding:5px;box-shadow:var(--shadow)}.nav button{background:transparent;color:var(--muted);padding:9px 6px;border-radius:13px;font-size:11px}.nav button.active{background:#22343b;color:var(--lime)}.toast-pop{position:absolute;left:50%;top:72px;transform:translateX(-50%) translateY(-8px);background:#d8ff5f;color:#0d1b0f;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:5}.toast-pop.show{opacity:1;transform:translateX(-50%) translateY(0)}.boss-overlay{position:absolute;inset:0;background:radial-gradient(circle at 50% 18%,#452b1acc,#090f13f5 48%);display:none;align-items:flex-end;z-index:10;padding:16px}.boss-overlay.show{display:flex}.boss-card{width:100%;background:linear-gradient(160deg,#2a1e1a,#121a1e 58%);border:1px solid #8c5d3e;border-radius:26px;padding:18px;box-shadow:0 22px 60px #000b;animation:bossIn .28s ease-out}.boss-kicker{color:var(--amber);font-size:11px;letter-spacing:.18em;font-weight:900}.boss-title{font-size:32px;line-height:1;font-weight:950;margin:5px 0 8px}.boss-sub{color:#d7c1b3;font-size:12px}.boss-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.boss-stat{background:#161c20;border:1px solid #4b3730;border-radius:14px;padding:10px}.boss-stat small{display:block;color:#a89183;font-size:10px}.boss-stat b{font-size:20px;color:var(--amber)}.boss-reward{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.reward-chip{background:#241f1c;border:1px solid #594437;border-radius:999px;padding:7px 10px;font-size:11px;color:#ffe1a7}.boss-actions{display:flex;gap:8px}.boss-actions .btn{padding:14px 12px}.boss-actions .btn.primary{background:linear-gradient(135deg,#ffcf68,#ff974d);border-color:#ffcf68}.boss-card .progress{background:#171313;border:1px solid #553a2f;height:10px}.boss-card .progress i{background:linear-gradient(90deg,#ffcb61,#ff704f);transition:width .2s}@keyframes bossIn{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}.hero.boss-ready{border-color:#a1663c;box-shadow:0 0 0 1px #a1663c,0 0 38px #ff8a3d26,var(--shadow)}.part{cursor:pointer;transition:.18s}.part.selected{border-color:var(--lime);box-shadow:0 0 0 1px #c8ff4d55,0 8px 20px #0004}.part button{width:100%;margin-top:8px;padding:7px 6px;border-radius:9px;background:#1b3037;border:1px solid #34515b;color:var(--text);font-size:10px;font-weight:800}.part button:active{transform:translateY(1px)}.inspector{background:linear-gradient(145deg,#172a31,#10181d);border-color:#3a5c64}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.compare-box{background:#0e171c;border:1px solid var(--line);border-radius:12px;padding:9px}.compare-box small{display:block;color:var(--muted);font-size:10px}.compare-box b{display:block;font-size:18px;margin-top:2px}.compare-box.new{border-color:#87b94a}.delta{color:var(--lime);font-size:11px}.inspector-empty{color:var(--muted);font-size:12px;padding:4px 0}
 
 @media (min-width:600px){.canvas-wrap canvas{height:190px}}@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 .garage-car>div{flex:1;min-width:0}
@@ -23,6 +23,13 @@
 .inventory-filters label{display:grid;gap:4px;color:var(--muted);font-size:11px}
 .inventory-filters select{width:100%;min-height:44px;padding:6px;background:#0e171c;color:var(--text);border:1px solid #3a5c64;border-radius:10px;font:inherit;font-size:13px;color-scheme:dark}
 .inventory-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.effect-list{display:grid;gap:4px;margin-top:8px}
+.effect-row{display:flex;justify-content:space-between;gap:8px;padding:5px 7px;border-radius:8px;background:#0e171c;font-size:11px}
+.effect-row.negative{color:#ffae8e}
+.effect-row.positive{color:#d9ff87}
+.rarity-pips{display:flex;gap:3px;margin-top:5px}
+.rarity-pips i{width:10px;height:4px;border-radius:5px;background:#30444b}
+.rarity-pips i.on{background:var(--rarity-color,var(--lime));box-shadow:0 0 7px var(--rarity-color,var(--lime))}
 .inventory-item{text-align:left;min-height:86px;border-left:3px solid var(--rarity);padding:9px}
 .inventory-item small,.inventory-item .rarity{display:block}
 .inventory-item[aria-pressed=true]{background:#203039;outline:1px solid var(--lime)}
@@ -80,8 +87,8 @@
 .boss-build .recommended{color:var(--amber)}
 #bossBuildStatus{margin:6px 0 0}
 #bossRunBuild{margin-top:8px}
-#race.active{display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
-.race-body{overflow:hidden;min-height:0;flex:1}
+#race.active{display:block;height:100%;overflow-y:auto;overflow-x:hidden;padding:0 0 116px;-webkit-overflow-scrolling:touch}
+.race-body{overflow:visible;min-height:0}
 .crate-dock{flex:none;margin:7px 0 4px;padding:9px 10px;border:1px solid #3f5650;border-radius:15px;background:#111e24}
 .crate-dock header{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .crate-dock header .sub{font-size:11px;text-align:right}
@@ -101,6 +108,8 @@
 #bossReport .report-reward{margin:10px 0 0;color:var(--lime)}
 @media(max-height:850px){
   #race .hero{padding:12px}
+  #race .stats{margin-bottom:10px}
+  #race .race-controls{margin-bottom:8px}
   #race .canvas-wrap canvas{height:135px}
   #race .shift{padding:10px}
   #race .race-description{display:none}
@@ -121,6 +130,23 @@
 .resources .pill{white-space:nowrap}
 .race-controls{flex:none}
 .race-controls .shift{margin-top:7px}
+@media(max-width:430px){
+  .topbar{padding-inline:12px}
+  main{padding-inline:10px}
+  .hero{border-radius:20px}
+  .race-kicker{align-items:flex-start}
+  .race-tools .btn{min-height:38px}
+  .canvas-wrap canvas{height:126px}
+  .race-brief{font-size:11px}
+  .crate-dock{margin-top:5px;padding:8px}
+  .crate-dock .actions{gap:6px}
+  .crate-dock .actions .btn{font-size:11px}
+  .auto-controls{grid-template-columns:minmax(0,1fr) minmax(110px,auto)}
+  .bottom{padding-inline:8px}
+  .nav button{padding-block:10px}
+  #lootDialog{padding:13px;max-height:calc(100dvh - 24px);overflow-y:auto}
+  #lootComparison>.part-thumb{height:132px}
+}
 @media(max-width:360px){
   .topbar{gap:6px;padding-inline:12px}
   .resources{gap:4px}
@@ -261,6 +287,36 @@ const PART_ASSETS={
   'Двигатель':'engine','Турбина':'turbo','КПП':'gearbox','Слики':'tires',
   'Подвеска':'suspension','Тормоза':'brakes','Радиатор':'radiator','Спойлер':'wing'
 };
+const PART_EFFECTS={
+  'Двигатель':{positive:[['Разгон','accel',8],['Макс. скорость','top',6]],negative:[['Нагрев','heat',5],['Ресурс двигателя','wear',4]]},
+  'Турбина':{positive:[['Разгон','accel',5],['Макс. скорость','top',10]],negative:[['Нагрев','heat',7],['Ресурс двигателя','wear',6]]},
+  'КПП':{positive:[['Рывок переключения','boost',8],['Разгон','accel',4]],negative:[['Нагрев','heat',2],['Ресурс трансмиссии','wear',3]]},
+  'Слики':{positive:[['Сцепление в повороте','corner',8],['Разгон','accel',3]],negative:[['Сцепление на холоде','cold',3],['Ресурс шин','wear',5]]},
+  'Подвеска':{positive:[['Стабильность в повороте','corner',7],['Разгон','accel',2]],negative:[['Масса','top',2],['Ресурс подвески','wear',3]]},
+  'Тормоза':{positive:[['Торможение в повороте','corner',6],['Охлаждение','cooling',3]],negative:[['Масса','top',2],['Износ колодок','wear',4]]},
+  'Радиатор':{positive:[['Охлаждение','cooling',9],['Защита от жары','heatResist',6]],negative:[['Масса','top',3],['Ресурс системы','wear',2]]},
+  'Спойлер':{positive:[['Стабильность в повороте','corner',5],['Макс. скорость','top',3]],negative:[['Сопротивление воздуха','top',2],['Масса','accel',2],['Ресурс креплений','wear',2]]}
+};
+const WHEEL_TIERS=['Обычные колёса','Дорожные шины','Полуслики','Слики','Гоночные слики','Мягкие слики','Прототип шин'];
+function partEffects(item){
+  const spec=PART_EFFECTS[item.part]||PART_EFFECTS['Двигатель'];
+  const rarity=Number(item.rarity)||0;
+  const quality=1+rarity*.18+Math.max(0,Number(item.power||0)-5)/160;
+  const drawback=Math.max(.48,1-rarity*.08);
+  return [...spec.positive.map(([label,key,value])=>({label,key,value:Math.round(value*quality)})),...spec.negative.map(([label,key,value])=>({label,key,value:-Math.round(value*drawback)}))];
+}
+function partDisplayName(item){return item.part==='Слики'?WHEEL_TIERS[item.rarity]||'Колёса':item.part}
+function effectsMarkup(item){
+  const [rarity,color]=CFG.rarities[item.rarity];
+  const rows=partEffects(item).map(effect=>`<div class="effect-row ${effect.value>=0?'positive':'negative'}"><span>${effect.label}</span><b>${effect.value>0?'+':''}${effect.value}%</b></div>`).join('');
+  const pips=CFG.rarities.map((_,index)=>`<i class="${index<=item.rarity?'on':''}"></i>`).join('');
+  return `<div class="sub" style="color:${color}">${rarity} · ${partDisplayName(item)}</div><div class="rarity-pips" style="--rarity-color:${color}" aria-label="Редкость ${rarity}">${pips}</div><div class="effect-list">${rows}</div>`;
+}
+function effectTotals(items){
+  const total={top:0,accel:0,boost:0,cooling:0,heat:0,corner:0};
+  items.forEach(item=>partEffects(item).forEach(effect=>{if(effect.key==='top') total.top+=effect.value;if(effect.key==='accel') total.accel+=effect.value;if(effect.key==='boost') total.boost+=effect.value;if(effect.key==='cooling') total.cooling+=effect.value;if(effect.key==='heat') total.heat+=effect.value;if(effect.key==='corner') total.corner+=effect.value;}));
+  return total;
+}
 const PART_FLOORS=[5,8,11,15,20,27,36];
 const fresh=()=>({credits:980,xp:0,level:1,stage:1,wins:2,heat:32,combo:1,containerLevel:1,crates:0,parts:[],equipped:{},presets:Array(PRESET_COUNT).fill(null),nextPartId:1,lastSeen:Date.now(),autoMinRarity:DEFAULT_AUTO_RARITY,soundEnabled:false,selectedCarId:'vaz08'});
 let selectedPart=null, lootId=null;
@@ -543,7 +599,7 @@ function renderParts(){
   const equipped=new Map(state.parts.filter(isEquipped).map(item=>[item.part,item]));
   garageEl('partsGrid').innerHTML=CFG.parts.map(part=>`
     <button type="button" data-slot="${part}" aria-pressed="${garageEl('partType').value===part}">
-      <img class="part-thumb rarity-0" style="--rarity-color:#69797d" src="${partAsset(part,equipped.get(part)?.rarity??0)}" alt="">${part}<small>${equipped.has(part)?'+'+equipped.get(part).power+'%':'Пусто'}</small>
+      <img class="part-thumb rarity-${equipped.get(part)?.rarity??0}" style="--rarity-color:${equipped.has(part)?CFG.rarities[equipped.get(part).rarity][1]:'#69797d'}" src="${partAsset(part,equipped.get(part)?.rarity??0)}" alt=""><strong>${equipped.has(part)?partDisplayName(equipped.get(part)):part}</strong><small>${equipped.has(part)?CFG.rarities[equipped.get(part).rarity][0]+' · +'+equipped.get(part).power+'%':'Пусто'}</small>
     </button>`).join('');
   garageEl('inventoryCount').textContent=`${visible.length} из ${state.parts.length}`;
   garageEl('inventoryList').innerHTML=visible.map(item=>{
@@ -551,8 +607,8 @@ function renderParts(){
     const badges=[isEquipped(item)?'Установлена':'',best.get(item.part)===item?'Лучшая в слоте':''].filter(Boolean);
     return `<button type="button" class="part inventory-item" data-item="${item.id}"
       aria-pressed="${selectedPart===item.id}" style="--rarity:${color}">
-      <img class="${partImageClass(item.rarity)}" style="--rarity-color:${CFG.rarities[item.rarity][1]}" src="${partAsset(item.part,item.rarity)}" alt=""><small>${item.part} · ур. ${item.level}</small><b>+${item.power}%</b>
-      <span class="rarity" style="color:${color}">${rarity}</span>
+      <img class="${partImageClass(item.rarity)}" style="--rarity-color:${CFG.rarities[item.rarity][1]}" src="${partAsset(item.part,item.rarity)}" alt=""><small>${partDisplayName(item)} · ур. ${item.level}</small><b>+${item.power}%</b>
+      ${effectsMarkup(item)}
       ${badges.length?'<small>'+badges.join(' · ')+'</small>':''}
     </button>`;
   }).join('') || `<p class="sub inventory-empty">${state.parts.length?'Нет деталей по этим фильтрам.':'Открой контейнер, чтобы получить первую деталь.'}</p>`;
@@ -564,10 +620,11 @@ function partComparison(item, label){
   const difference=item.power-(installed?.power??0);
   const delta=difference===0?'Одинаковая сила':`${difference>0?'+':''}${difference} п. п.`;
   return `
-    <img class="${partImageClass(item.rarity)}" style="--rarity-color:${color}" src="${partAsset(item.part,item.rarity)}" alt="${item.part}">
+    <img class="${partImageClass(item.rarity)}" style="--rarity-color:${color}" src="${partAsset(item.part,item.rarity)}" alt="${partDisplayName(item)}">
+    ${effectsMarkup(item)}
     <div class="compare-grid">
       <div class="compare-box new"><small>${label}</small><b style="color:${color}">+${item.power}%</b></div>
-      <div class="compare-box"><small>Установленная</small><b>${installed?'+'+installed.power+'%':'Пусто'}</b>
+      <div class="compare-box"><small>Установленная${installed?' · '+CFG.rarities[installed.rarity][0]:''}</small><b>${installed?'+'+installed.power+'%':'Пусто'}</b>
         <span class="sub">${installed?delta:'Свободный слот'}</span></div>
     </div>
 `;
@@ -581,8 +638,8 @@ function renderInspector(best){
   const canUpgrade=item.level<10000 && upgradedPower(item)<=1e9;
   const canSell=!isEquipped(item);
   panel.innerHTML=`
-    <img class="${partImageClass(item.rarity)}" style="--rarity-color:${CFG.rarities[item.rarity][1]}" src="${partAsset(item.part,item.rarity)}" alt=""><div class="eyebrow">${item.part}</div>
-    <div class="title" style="font-size:20px" tabindex="-1" id="partTitle">${rarity} · ур. ${item.level}</div>
+    <div class="eyebrow">${item.part}</div>
+    <div class="title" style="font-size:20px" tabindex="-1" id="partTitle">${partDisplayName(item)} · ур. ${item.level}</div>
     ${partComparison(item,'Выбранная')}
     <div class="sub">${canUpgrade?'После улучшения: +'+upgradedPower(item)+'%':'Предел улучшений'} · ${canSell?'Продажа: '+priceToSell(item)+'¤':'Для продажи сначала сними деталь'}</div>
     <div class="actions">
@@ -729,29 +786,29 @@ function bossSection(profile,time){
   return sectors[0];
 }
 function buildPerformance(parts, classBonus=5){
-  const gain=type=>{
-    const power=parts[type]||0;
-    return power/(100+power);
-  };
+  const items=Array.isArray(parts)?parts:[];
+  const values=Object.fromEntries(items.map(item=>[item.part,item.power]));
+  const gain=type=>{const power=values[type]||0;return power/(100+power)};
   const engine=gain('Двигатель'), turbo=gain('Турбина'), gearbox=gain('КПП');
   const tires=gain('Слики'), suspension=gain('Подвеска'), brakes=gain('Тормоза');
   const radiator=gain('Радиатор'), wing=gain('Спойлер');
+  const effects=effectTotals(items);
   return {
-    top:RACE.stockSpeed+62*engine+72*turbo+38*gearbox+46*wing,
-    acceleration:RACE.stockAccel+40*engine+44*turbo+36*tires+34*suspension,
-    shiftBoost:(23+42*gearbox+32*turbo+20*wing)*(1+classBonus/100),
+    top:RACE.stockSpeed+62*engine+72*turbo+38*gearbox+46*wing+effects.top,
+    acceleration:RACE.stockAccel+40*engine+44*turbo+36*tires+34*suspension+effects.accel,
+    shiftBoost:(23+42*gearbox+32*turbo+20*wing)*(1+classBonus/100)*(1+effects.boost/100),
     boostDuration:1.0+2.0*gearbox+1.5*suspension,
-    cooling:2.05+5.8*radiator+1.3*brakes,
+    cooling:2.05+5.8*radiator+1.3*brakes+effects.cooling*.08,
     shiftHeat:8*(1-.95*radiator-.42*brakes-.28*gearbox),
-    loadHeat:2.2+.8*engine+1.4*turbo-.3*tires,
-    pitTime:RACE.pitSeconds-2*brakes-1.2*radiator,
-    cornerSpeed:127+155*tires+150*suspension+120*brakes,
+    loadHeat:Math.max(.4,2.2+.8*engine+1.4*turbo-.3*tires+effects.heat*.08),
+    pitTime:Math.max(.7,RACE.pitSeconds-2*brakes-1.2*radiator),
+    cornerSpeed:127+155*tires+150*suspension+120*brakes+effects.corner,
     heatResistance:Math.max(.12,1-2.3*radiator-.75*brakes)
   };
 }
 function performanceForSlots(slots){
   const parts=state.parts.filter(item=>slots[item.part]===item.id);
-  return buildPerformance(Object.fromEntries(parts.map(item=>[item.part,item.power])),carForLevel().bonus);
+  return buildPerformance(parts,carForLevel().bonus);
 }
 function currentPerformance(){
   return performanceForSlots(state.equipped);
@@ -1264,7 +1321,7 @@ function openContainer(automatic=false){
   saveState();
   renderAll();
   lootId=item.id;
-  garageEl('lootType').textContent=part+' · '+CFG.rarities[rarity][0];
+  garageEl('lootType').textContent=partDisplayName(item)+' · '+CFG.rarities[rarity][0];
   garageEl('lootComparison').innerHTML=partComparison(item,'Новая деталь')+
     `<p class="sub">Продажа: ${fmt(priceToSell(item))}¤ и ${saleXp(item)} XP</p>`;
   const note=garageEl('lootAutoNote');
