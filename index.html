@@ -58,9 +58,12 @@
 .shift .meter i{position:absolute;top:0;width:3px;height:100%;background:#f5ffe6}
 .shift:disabled{opacity:.57;cursor:default}
 #bossShift{margin-top:8px}
-.boss-overlay{overflow:hidden}
-.boss-card{margin-top:auto}
+.boss-overlay{overflow-y:auto;overflow-x:hidden;align-items:flex-start;z-index:30}
+.boss-card{margin:16px auto 116px;max-height:none}
 .boss-overlay.show{align-items:flex-start}
+.compare-box.installed{border-color:var(--rarity-color,#52656c);box-shadow:0 0 0 1px color-mix(in srgb,var(--rarity-color,#52656c),transparent 35%)}
+.compare-box .effect-list{margin-top:6px;gap:3px}.compare-box .effect-row{font-size:10px;padding:4px 5px}
+
 .boss-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
 .boss-stat b{font-variant-numeric:tabular-nums}
 #buildPerformance{margin-bottom:10px}
@@ -275,7 +278,7 @@
 <div class="evo" id="evoTree"></div>
 </section>
 </main>
-<nav class="bottom"><div class="nav"><button class="active" data-screen="race">🏁<br>Гонка</button><button data-screen="garage">🔧<br>Гараж</button><button data-screen="evolution">Эволюция</button></div></nav>
+<nav class="bottom"><div class="nav"><button class="active" data-screen="race">🏁<br>Гонка</button><button data-screen="garage">🔧<br>Гараж</button><button data-screen="evolution">🚘<br>Эволюция</button></div></nav>
 </div>
 <script>
 const CFG={saveKey:'ring-rush-save-v1',offlineCap:8*3600,parts:['Двигатель','Турбина','КПП','Слики','Подвеска','Тормоза','Радиатор','Спойлер'],icons:['🧰','🌀','⚙️','◉','⌁','⛓','❄️','▰'],rarities:[['Обычная','#9da9aa',1],['Необычная','#69e2e8',1.08],['Редкая','#8e9cff',1.18],['Эпик','#c982ff',1.32],['Легендарная','#ffbe55',1.5],['Мифическая','#ff6b9f',1.72],['Прототип','#e7ff73',2.0]],cars:[{id:'vaz08',name:'VAZ-08 Samara',level:1,side:'assets/vaz08_side.png',card:'assets/vaz08_card.png',bonus:5},{id:'e46_club',name:'BM E46 Clubsport',level:15,side:'assets/e46_club_side.png',card:'assets/e46_club_card.png',bonus:14},{id:'e46_gtr',name:'BM E46 GTR Touring',level:50,side:'assets/e46_gtr_side.png',card:'assets/e46_gtr_card.png',bonus:26},{id:'gt3rs',name:'Porsche 911 GT3-RS',level:100,side:'assets/gt3rs_side.png',card:'assets/gt3rs_card.png',bonus:44}]};
@@ -636,8 +639,7 @@ function partComparison(item, label){
     ${effectsMarkup(item)}
     <div class="compare-grid">
       <div class="compare-box new"><small>${label}</small><b style="color:${color}">+${item.power}%</b></div>
-      <div class="compare-box"><small>Установленная${installed?' · '+CFG.rarities[installed.rarity][0]:''}</small><b>${installed?'+'+installed.power+'%':'Пусто'}</b>
-        <span class="sub">${installed?delta:'Свободный слот'}</span></div>
+      ${installed?`<div class="compare-box installed" style="--rarity-color:${CFG.rarities[installed.rarity][1]}"><small>Установленная · ${CFG.rarities[installed.rarity][0]}</small><b>+${installed.power}%</b><span class="sub">${delta}</span>${effectsMarkup(installed)}</div>`:`<div class="compare-box"><small>Установленная</small><b>Пусто</b><span class="sub">Свободный слот</span></div>`}
     </div>
 `;
 }
@@ -819,7 +821,11 @@ function buildPerformance(parts, classBonus=5, wear={}){
   const topBase=RACE.stockSpeed+62*engine+72*turbo+38*gearbox+46*wing+effects.top;
   const accelerationBase=RACE.stockAccel+40*engine+44*turbo+36*tires+34*suspension+effects.accel;
   const cornerBase=127+155*tires+150*suspension+120*brakes+effects.corner;
+  const power=Math.round((115+topBase*.62+accelerationBase*2.2+classBonus*2)*engineCondition);
+  const aeroDrag=Math.max(72,Math.round(100+Math.max(0,wing)*18+Math.max(0,-effects.top)*2));
   return {
+    power,
+    aeroDrag,
     top:topBase*engineCondition,
     acceleration:accelerationBase*engineCondition,
     shiftBoost:(23+42*gearbox+32*turbo+20*wing)*(1+classBonus/100)*(1+effects.boost/100)*engineCondition,
@@ -945,13 +951,16 @@ function runBenchmark(spec,stage,heat=32){
 }
 const decimal=value=>value.toLocaleString('ru-RU',{minimumFractionDigits:1,maximumFractionDigits:1});
 function renderBuildPerformance(){
+  const zeroToHundred=100/Math.max(1,performanceSpec.acceleration);
   garageEl('buildPerformance').innerHTML=partWearMarkup()+`<div class="stats" style="margin-top:0">
-    <div class="stat"><small>СКОРОСТЬ БЕЗ РЫВКА</small><strong>${Math.round(performanceSpec.top)} <small style="display:inline">км/ч</small></strong></div>
-    <div class="stat"><small>БАЗОВЫЙ РАЗГОН</small><strong>${decimal(performanceSpec.acceleration)} <small style="display:inline">км/ч за с</small></strong></div>
-    <div class="stat"><small>ОХЛАЖДЕНИЕ</small><strong>${decimal(performanceSpec.cooling)} <small style="display:inline">п. п./с</small></strong></div>
-    <div class="stat"><small>ЛИМИТ В КРУТОМ ВИРАЖЕ</small><strong>${Math.round(performanceSpec.cornerSpeed)} <small style="display:inline">км/ч</small></strong></div>
-    <div class="stat"><small>ЗАЩИТА ОТ ЖАРЫ</small><strong>${Math.round(100*(1-performanceSpec.heatResistance))}%</strong></div>
-    <div class="stat"><small>БОНУС РЫВКА К ЛИМИТУ</small><strong>+${Math.round(performanceSpec.shiftBoost)} <small style="display:inline">км/ч</small></strong></div>
+    <div class="stat"><small>МОЩНОСТЬ</small><strong>${performanceSpec.power} <small style="display:inline">л.с.</small></strong></div>
+    <div class="stat"><small>МАКСИМАЛЬНАЯ СКОРОСТЬ</small><strong>${Math.round(performanceSpec.top)} <small style="display:inline">км/ч</small></strong></div>
+    <div class="stat"><small>РАЗГОН 0–100 КМ/Ч</small><strong>${decimal(zeroToHundred)} <small style="display:inline">с</small></strong></div>
+    <div class="stat"><small>ЛОБОВОЕ СОПРОТИВЛЕНИЕ</small><strong>${performanceSpec.aeroDrag} <small style="display:inline">ед.</small></strong></div>
+    <div class="stat"><small>СКОРОСТЬ В ПОВОРОТЕ</small><strong>${Math.round(performanceSpec.cornerSpeed)} <small style="display:inline">км/ч</small></strong></div>
+    <div class="stat"><small>СНИЖЕНИЕ НАГРЕВА</small><strong>${Math.round(performanceSpec.cooling*10)} <small style="display:inline">%/с</small></strong></div>
+    <div class="stat"><small>ЗАЩИТА ОТ ПЕРЕГРЕВА</small><strong>${Math.round(100*(1-performanceSpec.heatResistance))}%</strong></div>
+    <div class="stat"><small>СИЛА РЫВКА</small><strong>+${Math.round(performanceSpec.shiftBoost)} <small style="display:inline">км/ч</small></strong></div>
   </div>`;
   if(!garageEl('buildBenchmark').hidden) renderBenchmark();
 }
