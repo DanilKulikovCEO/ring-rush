@@ -30,6 +30,16 @@
 .rarity-pips{display:flex;gap:3px;margin-top:5px}
 .rarity-pips i{width:10px;height:4px;border-radius:5px;background:#30444b}
 .rarity-pips i.on{background:var(--rarity-color,var(--lime));box-shadow:0 0 7px var(--rarity-color,var(--lime))}
+.wear-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.wear-card{background:#101b22;border:1px solid var(--line);border-radius:14px;padding:10px}
+.wear-card header{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px}
+.wear-card header b{font-size:16px}
+.wear-card.good{border-color:#4f7049}.wear-card.warn{border-color:#84633c}.wear-card.danger{border-color:#8e4d4d}
+.wear-bar{height:7px;margin-top:7px;background:#0a1115;border-radius:9px;overflow:hidden}
+.wear-bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#87e36c,#ffcf63,#ff6b5e)}
+.wear-card .sub{margin-top:5px;font-size:10px}
+.wear-actions{display:flex;gap:6px;margin-top:8px}.wear-actions .btn{min-height:38px;padding:7px 8px;font-size:11px}
+
 .inventory-item{text-align:left;min-height:86px;border-left:3px solid var(--rarity);padding:9px}
 .inventory-item small,.inventory-item .rarity{display:block}
 .inventory-item[aria-pressed=true]{background:#203039;outline:1px solid var(--lime)}
@@ -318,7 +328,7 @@ function effectTotals(items){
   return total;
 }
 const PART_FLOORS=[5,8,11,15,20,27,36];
-const fresh=()=>({credits:980,xp:0,level:1,stage:1,wins:2,heat:32,combo:1,containerLevel:1,crates:0,parts:[],equipped:{},presets:Array(PRESET_COUNT).fill(null),nextPartId:1,lastSeen:Date.now(),autoMinRarity:DEFAULT_AUTO_RARITY,soundEnabled:false,selectedCarId:'vaz08'});
+const fresh=()=>({credits:980,xp:0,level:1,stage:1,wins:2,heat:32,combo:1,containerLevel:1,crates:0,parts:[],equipped:{},presets:Array(PRESET_COUNT).fill(null),nextPartId:1,lastSeen:Date.now(),autoMinRarity:DEFAULT_AUTO_RARITY,soundEnabled:false,selectedCarId:'vaz08',engineWear:0,tireWear:0});
 let selectedPart=null, lootId=null;
 let state=loadState(), screen='race', audioCtx=null, carImages={};
 let racePaused=false, exhaustAge=Infinity, exhaustStrength=1;
@@ -389,6 +399,8 @@ function loadState(){
     delete save.bossScore;
     save.combo=Number.isFinite(save.combo)?Math.max(1,Math.min(MAX_COMBO,save.combo)):1;
     save.heat=Number.isFinite(save.heat)?Math.max(0,Math.min(100,save.heat)):32;
+    save.engineWear=Number.isFinite(save.engineWear)?Math.max(0,Math.min(100,save.engineWear)):0;
+    save.tireWear=Number.isFinite(save.tireWear)?Math.max(0,Math.min(100,save.tireWear)):0;
     applyOfflineProgress(save);
     return save;
   }catch{return fresh()}
@@ -785,36 +797,50 @@ function bossSection(profile,time){
   }
   return sectors[0];
 }
-function buildPerformance(parts, classBonus=5){
+function wearLevel(value){return clamp(Number.isFinite(value)?value:0,0,100)}
+function wearState(value){const wear=wearLevel(value);return wear<25?'good':wear<65?'warn':'danger'}
+function wearLabel(value){const wear=wearLevel(value);return wear<25?'Норма':wear<65?'Нужен сервис':'Критический износ'}
+function wearCost(value,base,multiplier){return base+Math.ceil(wearLevel(value)*multiplier)}
+function partWearMarkup(){
+  const engine=wearLevel(state.engineWear), tires=wearLevel(state.tireWear);
+  const card=(title,wear,description,action,cost)=>`<div class="wear-card ${wearState(wear)}"><header><span>${title}</span><b>${Math.round(wear)}%</b></header><div class="wear-bar"><i style="width:${wear}%"></i></div><div class="sub">${wearLabel(wear)} · ${description}</div><div class="wear-actions"><button class="btn" type="button" id="${action}" ${wear<1?'disabled':''}>${wear<1?'Исправно':'Обслужить · '+fmt(cost)+'¤'}</button></div></div>`;
+  return `<div class="wear-grid">${card('ИЗНОС ДВИГАТЕЛЯ',engine,'влияет на скорость, разгон и нагрев','serviceEngine',wearCost(engine,80,4))}${card('ИЗНОС ШИН',tires,'влияет на сцепление в поворотах','replaceTires',wearCost(tires,55,3))}</div>`;
+}
+function buildPerformance(parts, classBonus=5, wear={}){
   const items=Array.isArray(parts)?parts:[];
+  const engineWear=wearLevel(wear.engine), tireWear=wearLevel(wear.tires);
+  const engineCondition=1-engineWear*.0035, tireCondition=1-tireWear*.004;
   const values=Object.fromEntries(items.map(item=>[item.part,item.power]));
   const gain=type=>{const power=values[type]||0;return power/(100+power)};
   const engine=gain('Двигатель'), turbo=gain('Турбина'), gearbox=gain('КПП');
   const tires=gain('Слики'), suspension=gain('Подвеска'), brakes=gain('Тормоза');
   const radiator=gain('Радиатор'), wing=gain('Спойлер');
   const effects=effectTotals(items);
+  const topBase=RACE.stockSpeed+62*engine+72*turbo+38*gearbox+46*wing+effects.top;
+  const accelerationBase=RACE.stockAccel+40*engine+44*turbo+36*tires+34*suspension+effects.accel;
+  const cornerBase=127+155*tires+150*suspension+120*brakes+effects.corner;
   return {
-    top:RACE.stockSpeed+62*engine+72*turbo+38*gearbox+46*wing+effects.top,
-    acceleration:RACE.stockAccel+40*engine+44*turbo+36*tires+34*suspension+effects.accel,
-    shiftBoost:(23+42*gearbox+32*turbo+20*wing)*(1+classBonus/100)*(1+effects.boost/100),
+    top:topBase*engineCondition,
+    acceleration:accelerationBase*engineCondition,
+    shiftBoost:(23+42*gearbox+32*turbo+20*wing)*(1+classBonus/100)*(1+effects.boost/100)*engineCondition,
     boostDuration:1.0+2.0*gearbox+1.5*suspension,
-    cooling:2.05+5.8*radiator+1.3*brakes+effects.cooling*.08,
+    cooling:(2.05+5.8*radiator+1.3*brakes+effects.cooling*.08)*engineCondition,
     shiftHeat:8*(1-.95*radiator-.42*brakes-.28*gearbox),
-    loadHeat:Math.max(.4,2.2+.8*engine+1.4*turbo-.3*tires+effects.heat*.08),
+    loadHeat:Math.max(.4,2.2+.8*engine+1.4*turbo-.3*tires+effects.heat*.08+engineWear*.014),
     pitTime:Math.max(.7,RACE.pitSeconds-2*brakes-1.2*radiator),
-    cornerSpeed:127+155*tires+150*suspension+120*brakes+effects.corner,
+    cornerSpeed:cornerBase*tireCondition,
     heatResistance:Math.max(.12,1-2.3*radiator-.75*brakes)
   };
 }
 function performanceForSlots(slots){
   const parts=state.parts.filter(item=>slots[item.part]===item.id);
-  return buildPerformance(parts,carForLevel().bonus);
+  return buildPerformance(parts,carForLevel().bonus,{engine:state.engineWear,tires:state.tireWear});
 }
 function currentPerformance(){
   return performanceForSlots(state.equipped);
 }
 function createRun(gap,heat=32){
-  return {speed:RACE.startSpeed,gap,heat,time:0,pit:0,boost:0,boostTime:0,nextShift:0,peakHeat:heat,pitStops:0,pitSeconds:0,shifts:0,perfectShifts:0,criticalNitros:0,doubleDashes:0,doubleBoostPending:false,lastShiftEffect:'normal'};
+  return {speed:RACE.startSpeed,gap,heat,time:0,pit:0,boost:0,boostTime:0,nextShift:0,engineWear:wearLevel(state.engineWear),tireWear:wearLevel(state.tireWear),peakHeat:heat,pitStops:0,pitSeconds:0,shifts:0,perfectShifts:0,criticalNitros:0,doubleDashes:0,doubleBoostPending:false,lastShiftEffect:'normal'};
 }
 const regularRun=()=>createRun(stageProfile(state.stage).regularGap,state.heat);
 let trackRun=regularRun();
@@ -877,6 +903,11 @@ function stepRace(run,spec,dt,rivalSpeed,sector){
     run.heat=clamp(run.heat+(spec.loadHeat*(run.speed/spec.top)**2+(sector?.heat??0)*spec.heatResistance-spec.cooling)*dt,0,100);
     checkOverheat(run,spec);
   }
+  const heatLoad=Math.max(0,(run.heat-45)/55);
+  const cornerLoad=sector?.corner??0;
+  const wearFactor=run.pit>0?.3:1;
+  run.engineWear=clamp(run.engineWear+dt*wearFactor*(.012+heatLoad*.035+(run.speed/2800)*.012),0,100);
+  run.tireWear=clamp(run.tireWear+dt*wearFactor*(.01+cornerLoad*.035+(run.speed/3500)*.009),0,100);
   run.gap=clamp(run.gap+(rivalSpeed-run.speed)*dt/3.6,0,160);
 }
 function stepEncounter(run,spec,dt,profile,sector){
@@ -914,7 +945,7 @@ function runBenchmark(spec,stage,heat=32){
 }
 const decimal=value=>value.toLocaleString('ru-RU',{minimumFractionDigits:1,maximumFractionDigits:1});
 function renderBuildPerformance(){
-  garageEl('buildPerformance').innerHTML=`<div class="stats" style="margin-top:0">
+  garageEl('buildPerformance').innerHTML=partWearMarkup()+`<div class="stats" style="margin-top:0">
     <div class="stat"><small>СКОРОСТЬ БЕЗ РЫВКА</small><strong>${Math.round(performanceSpec.top)} <small style="display:inline">км/ч</small></strong></div>
     <div class="stat"><small>БАЗОВЫЙ РАЗГОН</small><strong>${decimal(performanceSpec.acceleration)} <small style="display:inline">км/ч за с</small></strong></div>
     <div class="stat"><small>ОХЛАЖДЕНИЕ</small><strong>${decimal(performanceSpec.cooling)} <small style="display:inline">п. п./с</small></strong></div>
@@ -1225,6 +1256,10 @@ function tickRace(dt){
   const spec=boss?bossPreparation.selected.spec:performanceSpec;
   stepEncounter(trackRun,spec,step,profile,boss?bossSection(profile,trackRun.time):null);
   state.heat=trackRun.heat;
+  state.engineWear=trackRun.engineWear;
+  state.tireWear=trackRun.tireWear;
+  wearSaveClock+=dt;
+  if(wearSaveClock>=5){wearSaveClock=0;saveState()}
   if(!wasInPit && trackRun.pit>0){
     state.combo=1;
     addLog('🛠 Пит-стоп · перегрев');
@@ -1493,6 +1528,18 @@ function initPresets(){
     list.querySelector(`[data-edit="${index}"]`).focus({preventScroll:true});
   });
 }
+function serviceEngine(){
+  const cost=wearCost(state.engineWear,80,4);
+  if(wearLevel(state.engineWear)<1){notify('Двигатель исправен');return}
+  if(state.credits<cost){notify('Нужно '+fmt(cost)+'¤');return}
+  state.credits-=cost;state.engineWear=0;trackRun.engineWear=0;saveState();renderAll();notify('Двигатель обслужен');
+}
+function replaceTires(){
+  const cost=wearCost(state.tireWear,55,3);
+  if(wearLevel(state.tireWear)<1){notify('Шины в норме');return}
+  if(state.credits<cost){notify('Нужно '+fmt(cost)+'¤');return}
+  state.credits-=cost;state.tireWear=0;trackRun.tireWear=0;saveState();renderAll();notify('Шины заменены');
+}
 function initInventory(){
   const fillOptions=(id,options)=>{
     const select=garageEl(id);
@@ -1641,6 +1688,7 @@ garageEl('lootSell').addEventListener('click',()=>{
   closeLootDialog();
 });
 garageEl('upgradeCrate').addEventListener('click',upgradeContainer);
+garageEl('buildPerformance').addEventListener('click',event=>{if(event.target.id==='serviceEngine')serviceEngine();if(event.target.id==='replaceTires')replaceTires()});
 garageEl('equipBest').addEventListener('click',equipBest);
 garageEl('evoTree').addEventListener('click',event=>{
   const button=event.target.closest('[data-car-select]');
@@ -1717,7 +1765,7 @@ document.addEventListener('visibilitychange',()=>{
     saveState();
   }
 });
-let previousFrame=null, accumulator=0, lastTelemetry=0;
+let previousFrame=null, accumulator=0, lastTelemetry=0, wearSaveClock=0;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 function animateRace(now){
   const dt=previousFrame===null?0:Math.min(.25,(now-previousFrame)/1000);
